@@ -1,0 +1,226 @@
+<div id="test-popup" class="white-popup-tupa">
+            <!-- <h3>- Detalle de procedimiento</h3> -->
+            <div class="container-panel-procedures">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="title-procedures">
+                            <h1>Procedimiento del Detalle</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-tupa">
+                            <div class="panel-heading">
+                                Procedimientos
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-md-6 mg-bottom">
+                                    <h3>- Modulo</h3>
+                                    <p><%=tramite.modulo%></p>
+                                </div>
+                                <div class="col-md-6 mg-bottom">
+                                    <h3>- Procedimiento</h3>
+                                    <p><%=tramite.procedimiento%></p>
+                                </div>
+                                <div class="col-md-6 mg-bottom">
+                                    <h3>- Área Trámite</h3>
+                                    <p><%=tramite.area_tramite%></p>
+                                </div>
+                                <div class="col-md-6 mg-bottom">
+                                    <h3>- Atención</h3>
+                                    <p><%=tramite.atencion%></p>
+                                </div>
+                                <div class="col-md-6 mg-bottom">
+                                    <h3>- Pago</h3>
+                                    <p><%=tramite.pago%></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tabs-container">
+                        <ul class="tabs" id="tabs">
+                            <li class="tabs-item active">Información</li>
+                            <li class="tabs-item">Requisitos</li>
+                            <li class="tabs-item">Der. de Pagos</li>
+                            <li class="tabs-item">Autoridades</li>
+                        </ul>
+                        <div class="panels">
+                            <div class="panels-item active">
+                                <div class="panel panel-tupa">
+                                    <div class="panel-heading">
+                                        Notas del Procedimiento
+                                    </div>
+                                    <div class="panel-body">
+                                        <% if(tramite.notas_procedimiento) {%>
+                                            <%=tramite.notas_procedimiento%>
+                                        <% } else{%>
+                                             No hay información.
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <div class="panel panel-tupa">
+                                    <div class="panel-heading">
+                                        Notas del los Requisitos
+                                    </div>
+                                    <div class="panel-body">
+                                        <% if(tramite.notas_requisitos) {%>
+                                                <%=tramite.notas_requisitos%>
+                                        <% } else{%>
+                                                No hay información.
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="panel panel-tupa">
+                                            <div class="panel-heading">
+                                                Base Legal
+                                            </div>
+                                            <div class="panel-body">
+                                                <% if(tramite.base_legal) {%>
+                                                     <%=tramite.base_legal%>
+                                                <% } else{%>
+                                                     No hay información.
+                                                <% } %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="panel panel-tupa">
+                                            <div class="panel-heading">
+                                                Formatos 
+                                            </div>
+                                            <div class="panel-body">
+                                               <a href="<%=tramite.archivo_adjunto%>"><i class="fa fa-file-text-o">&nbsp Archivo adjunto</i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panels-item">
+                                <div class="panel panel-tupa">
+                                    <div class="panel-heading">
+                                        Requisitos
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>N</th>
+                                                    <th>Requisitos</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% requisitos.forEach(function(requisito){ %>
+                                                    <tr>
+                                                        <td><%=requisito.secuencia%></td>
+                                                        <td><%=requisito.nombre%></td>
+                                                    </tr>
+                                                <% }) %>                                               
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panels-item">
+                                <div class="panel panel-tupa">
+                                    <div class="panel-heading">
+                                        Derecho de Pago
+                                    </div>
+                                    <div class="panel-body">
+                                        <% if(tramite.pago=='GRATUITO'){%>
+                                             <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> El procedimiento es Gratuito
+                                        <% } else{%>
+                                             <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Código</th>
+                                                    <th>Partida</th>
+                                                    <th>Tributo</th>
+                                                    <th>Importe (S/.)</th>
+                                                    <th>UIT (%)</th>
+                                                    <th>Min.UIT (%)</th>
+                                                    <th>VO (%)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% derechos.forEach(function(derecho){ %>
+                                                    <tr>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td><%=derecho.tributo%></td>
+                                                        <td><%=derecho.importe%></td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                    </tr>
+                                                <% }) %>                                               
+                                            </tbody>
+                                            </table>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panels-item">
+                                <div class="panel panel-tupa">
+                                    <div class="panel-heading">
+                                        Autoridades
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Descripción</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Autoridad Competente</td>
+                                                    <td><%=tramite.autoridad_competente%></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Instancia de Resolución - Reconsideracioón</td>
+                                                    <td><%=tramite.instancia_reconsideracion%></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Instancia de Resolución - Apelación</td>
+                                                    <td><%=tramite.instancia_apelacion%></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button close -->
+            <button title="Close (Esc)" type="button" class="mfp-close">×</button>
+</div>     
+
+<script>
+    (function(d){
+        let tabs = Array.prototype.slice.apply(d.querySelectorAll('.tabs-item'));
+        let panels = Array.prototype.slice.apply(d.querySelectorAll('.panels-item'));
+
+        d.getElementById('tabs').addEventListener('click', e => {
+            if(e.target.tagName == 'LI'){
+               let i = tabs.indexOf(e.target);
+
+               tabs.map(tab => tab.classList.remove('active'));
+               tabs[i].classList.add('active');
+               panels.map(panel => panel.classList.remove('active'));
+               panels[i].classList.add('active');
+            }
+        });
+    })(document);
+</script>

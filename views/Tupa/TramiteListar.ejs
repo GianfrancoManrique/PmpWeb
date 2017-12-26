@@ -1,0 +1,92 @@
+<div class="container">
+	<input type="text" name="municipio" id="txtMunicipio" value="<%= municipio %>"  hidden>
+	<form class="form-horizontal" method="POST" action="/Tramite/Agregar">
+		<fieldset>
+			<div class="content-page">
+		  		<div class="content">
+					<div class="container">
+						<legend>Mantenimiento de Trámites</legend>	
+						<div class="row">
+							<br>	
+							<button class="btn btn-success" id="btnCrearTramite">Agregar</button>					
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="procedimiento">PROCEDIMIENTOS:</label>
+								<div class="col-sm-8">
+									<input type="text" id="txtNombre" name="nombre" class="form-control" placeholder="Ingrese nombre.">
+								</div>		
+							</div>	
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="nombre">MODULO:</label>
+								<div class="col-sm-8">
+									<select id="listaModulos" class="form-control">
+										<option value="0">Todos</option>
+										<% modulos.forEach(function(modulo){ %>
+											<% if(modulo.habilitado){ %>
+												<option value="<%=modulo.id%>"><%=modulo.area %></option>
+											<% } %>		    		
+										<% }) %>
+									</select>  	
+								</div>			   
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-2" for="procedimiento"></label>
+								<div class="col-sm-8">
+									<button class="btn btn-success" id="btnFiltrar">Buscar</button>
+								</div>		
+							</div>	
+						</div>	
+						<br>
+						<div class="row">
+							<br>
+								<div class="table-responsive">
+									<%if(tramites){%>	
+										<table class="table table-hover">
+											<thead class="thead-inverse">
+												<th>
+													<h5><b>Módulo</b></h5>
+												</th>
+												<th>
+													<h5><b>Trámite</b></h5>													
+												</th>
+												<th>
+													<h5><b>F.Creado</b></h5>														
+												</th>
+												<th>
+													<h5><b>F.Modificado</b></h5>														
+												</th>
+												<th>
+													<h5><b></b></h5>														
+												</th>
+											</thead>
+											<tbody id="tbTramites">						
+													<% tramites.forEach(function(tramite){ %>
+														<tr>
+															<td><%=tramite.modulo %></td>
+															<td><%=tramite.procedimiento %></td>		
+															<td><%=tramite.feccreado %></td>
+															<td><%=tramite.fecmodificado %></td>	
+															<td><button id="btnTramite<%= tramite.id %>" class="btn btn-primary">Detalle</button></td>										
+														</tr>									  
+													<% }) %>				
+											</tbody>
+										</table>
+										<%}else{%>
+										<label class="control-label col-sm-2" for="procedimiento"></label>
+										<div class="col-sm-8">Aún no se han configurado trámites.</div>
+										<%}%>
+								</div>
+						</div>
+					</div>
+		  		</div>
+			</div>
+		</fieldset>
+	</form>	
+</div>
+
+<br>
+<div class="container">
+	<div class="form-group">
+		
+	</div>
+</div>
+<script type="text/javascript" src="/js/Tramite/TramiteListar.js"></script>

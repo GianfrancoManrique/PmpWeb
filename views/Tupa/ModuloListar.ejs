@@ -1,0 +1,229 @@
+<div class="container">
+	<input type="text" id="txtMunicipio" value="<%= municipio %>"  hidden>
+	<form class="form-horizontal">
+	<fieldset>		
+		<div class="content-page">
+		  <div class="content">
+			<div class="container">
+				<legend>Mantenimiento de Módulos</legend>	
+					<button id="btnCrearMod" class="btn btn-success">Agregar</button> 
+					<br><br>
+					<div class="row">						
+						<% if(modulos.length>0){ %>
+							<div class="table-responsive">
+							<table class="table table-sm table-inverse table-hover" id="tModulos" name="modulos">
+								<thead class="thead-inverse">
+									<th>#</th>
+									<th>MODULO</th>
+									<th>HABILITADO</th>									
+								</thead>
+								<tbody  id="tbModulos">
+									<% modulos.forEach((modulo)=>{ %>
+										<tr>		
+											<td>
+												<p>												
+													<%= modulo.id %> 
+												</p> 
+											</td>				
+											<td>
+												<a id="lnkMod<%= modulo.id %>">
+													<%= modulo.area %>
+												</a></td>
+											<td>
+												<% if(modulo.habilitado) { %>
+													<label><input type="checkbox" value="" checked disabled><b></b></label> 		
+												<% }else{ %>
+													<label><input type="checkbox" value="" disabled><b></b></label> 
+												<% }%>
+											</td>
+										</tr>
+									<% }) %>
+								</tbody>
+							</table>
+							</div>
+						<% } %>
+					</div>
+					<br>
+					<div class="row">												
+						<div class="col-lg-3">
+							<div class="card-box">
+								<img src="/images/escudo.jpg" alt="">
+							</div>
+						</div>
+						<div class="col-lg-5">
+							<div class="card-box">
+								<h5><b>MODULO</b></h5>
+								<input type="text" class="form-control" name="nombre" id="txtModulo" placeholder="Ingrese nombre">
+								<h5><b>COMENTARIO</b></h5>
+								<input type="text" class="form-control" name="comentario" id="txtComentario" placeholder="Ingrese comentario">								
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="card-box">
+								<h5><b>ESTADO</b></h5>
+								<div class="checkbox">
+                    				<label><input type="checkbox" id="cbHabilitado" checked> Habilitado</label>
+                				</div>								
+								<label id="lblIdModulo" hidden></label>  
+								<h5><b>ACCIONES</b></h5>
+								<button id="btnGuardarMod" class="btn btn-success">Guardar</button>
+								<button id="btnEliminarMod" class="btn btn-danger">Eliminar</button>
+							</div>
+						</div>
+					</div>
+			</div>
+		  </div>
+		</div>
+	</fieldset>
+	</form>
+</div>
+
+<script>
+	$(document).ready(function(){
+		$('#btnCrearMod').on("click",fnCrearModulo);
+		$('#btnGuardarMod').click(fnGuardarModulo);
+		$("a[id^='lnkMod']").on("click",fnEditarModulo);
+		$('#btnEliminarMod').on('click',fnEliminarModulo);
+	})
+	function fnCrearModulo(e){
+		e.preventDefault();
+		$('#lblIdModulo').text(0);
+		$('#txtModulo').val('');
+		$('#txtModulo').prop('placeholder','Ingrese módulo TUPA.');
+		$('#txtModulo').css('background-color','#FFFFFF');
+		$('#txtComentario').val('');
+		$('#txtComentario').prop("placeholder",'Ingrese comentario de configuración.');
+		$('#txtComentario').css("background-color","#FFFFFF");
+		$('#cbHabilitado').prop('checked',false);
+	}
+	function fnGuardarModulo(e){
+		e.preventDefault();
+		var id=$("#lblIdModulo").text();
+		url=id==0?'/Modulo/Registrar':'/Modulo/Actualizar';
+		if($('#txtModulo').val()=='' || $('#txtModulo').val().length<=3){
+			alert('Debe ingresar un nombre válido');
+		}else{
+			var formData = new FormData();
+			formData.append('id',id);
+			formData.append('area',$('#txtModulo').val());
+			formData.append('comentario',$('#txtComentario').val());
+			formData.append('habilitado',$('#cbHabilitado').is(":checked"));
+			formData.append('municipio',$('#txtMunicipio').val());
+
+			$.ajax({
+				url:url,
+				data: formData,
+				processData: false,
+				contentType: false,
+				type: 'POST',
+				success: function(data){
+					var mensaje=id==0?'Módulo creado.':'Módulo actualizado.';
+					alert(mensaje);
+					fnMostrarModulos();	  	
+					//fnCargarModulos();
+				}
+			})
+		}	
+	}
+	function fnEditarModulo(e){
+		e.preventDefault();
+		id=e.target.id.substring(6);
+
+		$.get('/Modulo/EditarAjax/'+id,function(data){
+			console.log(data);
+			if(data.modulo){
+				$('#lblIdModulo').text(data.modulo.id);
+				$('#txtModulo').val(data.modulo.area)
+				$('#txtComentario').val(data.modulo.comentario);
+				$('#cbHabilitado').prop('checked',data.modulo.habilitado);
+			}
+		})			
+	}
+	function fnMostrarModulos(){
+
+		$('#tbModulos').empty();
+
+		var url='/Modulo/ListarAjax/'+$('#txtMunicipio').val();
+
+		$.get(url,function(data){
+
+			for (var i =0; i <data.length; i++) {
+			var tr=document.createElement("tr");
+			var td1=document.createElement("td");
+			td1.innerHTML=data[i].id;
+			/*
+			var p1=document.createElement('p');			
+			var a1=document.createElement("a");
+			a1.id="lnkMod"+data[i].id;
+			a1.className='btn btn-default btn-sm';
+			a1.innerHTML=data[i].id;
+			a1.addEventListener("click",fnEditarModulo,false);
+			p1.append(a1);			
+			td1.append(p1);
+			*/
+			var td2=document.createElement("td");
+			var a2=document.createElement("a");
+			a2.id='lnkMod'+data[i].id;
+			a2.innerHTML=data[i].area;
+			a2.addEventListener("click",fnEditarModulo,false);
+			td2.appendChild(a2);
+
+			var td3=document.createElement("td");
+			var input=document.createElement("input");
+			input.type="checkbox";
+			input.disabled=true;
+			input.checked=data[i].habilitado?true:false;
+			td3.appendChild(input);			
+
+			tr.appendChild(td1);
+			tr.appendChild(td2);
+			tr.appendChild(td3);			
+
+			$("#tbModulos").append(tr);
+
+			}	
+		})	
+	}
+
+	function fnCargarModulos(){
+
+		$("#listaModulos").empty();
+
+		url="/Modulo/Listar";
+
+		$.get(url,function(data){
+
+			var option0=document.createElement("option");
+			option0.value=0;
+			option0.innerHTML="Elija módulo."
+			$("#listaModulos").append(option0);
+
+			for (var i =0; i <data.length; i++) {
+				
+				if(data[i].habilitado){
+					var option=document.createElement("option");
+					option.value=data[i].id;
+					option.innerHTML=data[i].area;
+					
+					$("#listaModulos").append(option);
+				}		
+			}	
+		})	
+	}
+	function fnEliminarModulo(e){
+		e.preventDefault();
+		//id=e.target.id.substring(10);
+		console.log($('#lblIdModulo').text());
+		if($('#lblIdModulo').text()!=''){
+			$.post('/Modulo/EliminarAjax',{id:$('#lblIdModulo').text()},function(data){
+			
+				if(data.modulo){
+					alert('Modulo eliminado');
+					window.location.href='/Modulo/Listar/'+data.modulo[0].municipio;
+				}else{
+					alert('Error en eliminación.');
+				}
+			})
+		}					
+	}
+</script>

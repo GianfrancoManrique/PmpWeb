@@ -1,0 +1,8 @@
+<h1>Album</h1>
+
+
+<% album[0].fotos.forEach(function(foto){ %>   
+    <img src="<%= foto.url %>" alt=""><br>
+     <%= foto.descripion %>
+     <br>
+<% }) %>

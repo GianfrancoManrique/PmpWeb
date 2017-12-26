@@ -1,0 +1,111 @@
+
+  <form class="form-horizontal fixed-right">
+  <div class="container">	
+    <fieldset>
+    <div class="content-page">
+        <div class="content">
+        <div class="container">
+          <legend>Agregar Noticia</legend>
+          <div class="row">					
+            <div class="col-lg-9">
+              <div class="card-box">
+                  <br>
+                  <input type="text" id="txtIdMunicipio" value="<%=municipio %>" hidden>
+                  <h5><b>TITULO</b></h5>
+                  <input type="text" name="titulo" id="txtTitulo" class="form-control">
+                  <h5><b>RESUMEN</b></h5>
+                  <input type="text" name="resumen" id="txtResumen" class="form-control">
+                  <h5><b>CONTENIDO</b></h5>
+                  <textarea name="text" class="summernote" id="htmleditor" name="editor"></textarea>
+                  <h5><b>FOTO</b></h5>
+                   <form enctype="multipart/form-data" id="frmFoto">      
+                    <input type="file" class="file" id="fotoNoticia" name="fotoNoticia" data-show-upload="false">
+                    <div id="errorBlock" class="help-block"></div>
+                  </form>          
+                  <h5><b>RELEVANCIA</b></h5>
+                   <input type="number" min="1" max="5" value="5" id="numRelevancia" name="relevancia" class="form-control">
+                 <h5><b></b></h5>
+                  <div class="checkbox">
+                    	<label><input type="checkbox" id="cbHabilitado" checked>HABILITADO</label>
+                	</div>
+                   <h5><b></b></h5>
+                  <button class="btn btn-success" id="btnRegistrar">Registrar</button>        
+              </div>              
+            </div>
+            <div class="col-lg-3">
+              <div class="card-box">
+                 <br>
+                 
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+    </div>
+    </fieldset>
+  </div>
+   </form> 
+  <div id='loadingmessage' style='display:none'>
+    <img src='/img/loading-sm.gif'/>
+  </div>
+  <script type="text/javascript">
+    //Configuracion de editor HTML
+    $('#htmleditor').summernote({
+		toolbar: [
+		  // [groupName, [list of button]]
+      ['style', ['bold', 'italic', 'underline', 'clear']],
+      ['font', ['strikethrough', 'superscript', 'subscript']],
+      ['fontsize', ['fontsize']],
+      ['color', ['color']],
+      ['para', ['ul', 'ol', 'paragraph']],
+      ['height', ['height']]
+      ],
+      height: 250,
+      removeFormat:true
+	  });
+    //Funciones
+    $(document).ready(function(){
+       $('#btnRegistrar').on('click', fnRegistrar);
+    })
+
+    function fnRegistrar(e){
+      e.preventDefault();
+      var formData=new FormData();		
+		  formData.append('titulo',$('#txtTitulo').val());
+		  formData.append('resumen',$('#txtResumen').val());
+		 
+      //formData.append('contenido',$('#htmleditor').summernote('code'));	//extrae HTML
+      formData.append('contenido',$('#htmleditor').val());	//extrae HTML
+		  formData.append('relevancia',parseInt($('#numRelevancia').val()));	
+		  formData.append('habilitado',$("#cbHabilitado").val()=='on'?true:false);
+		  formData.append('municipio',$("#txtIdMunicipio").val());
+      //console.log($('#fotoNoticia')[0].files[0]);
+      formData.append('fotoNoticia',$('#fotoNoticia')[0].files[0]);
+
+         if($('#txtTitulo').val()==''){
+            alert('Título no válido.');
+        }else if($('#txtResumen').val()==''){
+            alert('Resumen no válido.');
+        }else if($("#fotoNoticia")[0].files[0]==undefined){
+            alert('Noticia requiere una foto.');
+        }else if($('#htmleditor').summernote('isEmpty')){
+            alert('Contenido no válido.');
+        }else if($('#numRelevancia').val()==undefined){
+           alert('Valor de relevancia no válida.');
+        }else{					
+          $('#loadingmessage').show();  // show the loading message.
+          $.ajax({url:'/Noticia/Registrar',
+            data: formData,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            success: function(data){
+              if(data.noticia){                
+                 $('#loadingmessage').hide(); // hide the loading message
+               	window.location.href = '/Noticia/Listar/'+data.noticia.municipio;
+              }					
+            }
+          });
+      }
+    }
+  </script>

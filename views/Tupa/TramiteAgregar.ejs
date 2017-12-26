@@ -1,0 +1,171 @@
+<div><input type="text" id="txtMunicipio" value="<%= municipio %>" hidden></div>
+<div class="container">
+	<form class="form-horizontal">
+	<fieldset>
+	<legend>
+		<h3>Agregar Trámite</h3>	  
+	</legend>	
+	</fieldset>		
+	</form>
+</div>
+<div class="container">	
+	<form class="form-horizontal">
+		<div id="tabsTramite">
+			<ul>
+				<li><a href="#tab-general">1. Información General</a></li>
+				<li><a href="#tab-información">2. Información Adicional</a></li>
+				<li><a href="#tab-requisitos">3. Requisitos</a></li>
+				<li><a href="#tab-derecho-pago">4. Derechos de Pago</a></li>
+				<li><a href="#tab-autoridades">5. Autoridades</a></li>
+			</ul>
+			<div id="tab-general">			
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="modulo">MODULO</label>
+					<div class="col-sm-10">
+						<select id="listaModulos" class="form-control">
+							<option value="0">Elija módulo</option>	
+							<% modulos.forEach(function(modulo){ %>
+								<% if(modulo.habilitado){ %>
+									<option value="<%=modulo.id %>"><%=modulo.area %></option>
+								<% } %>		    		
+							<% }) %>	    	
+						</select>  	
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="nombre">PROCEDIMIENTO</label>
+					<div class="col-sm-10"> 
+						<input type="text" name="nombre" id="txtNombre" class="form-control" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="areaTramite">AREA TRAMITE</label>
+					<div class="col-sm-10"> 
+						<input type="text" name="areaTramite" id="txtAreaTramite" class="form-control">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="atencion">PLAZO ATENCION</label>
+					<div class="col-sm-2"> 
+						<input type="number" name="atencion" id="txtAtencion" class="form-control" min="0" value="0">						
+					</div>
+					<div class="alert alert-warning">
+						* Configure 0 para aprobación automática.
+					</div>
+				</div>
+				<div class="form-group"> 
+					<div class="col-sm-offset-2 col-sm-10">
+					<div class="checkbox">
+						<label><input type="checkbox" name="pago" id="cbPago" checked>Derecho de Pago</label>		
+					</div>
+					</div>
+				</div>
+			</div>
+			<div id="tab-información">
+				<div class="form-group">					
+					<label class="control-label col-sm-2" for="comment">BASE LEGAL</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" rows="5" id="txtBaseLegal" placeholder="Ingrese la base legal de Procedimiento."></textarea>
+					</div>  	  
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="notasProcedimiento">NOTAS DEL PROCEDIMIENTO</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" rows="5" id="txtNotasProcedimiento" name="notasProcedimiento" placeholder="Ingrese notas del Procedimiento."></textarea>
+					</div>  	  
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="notasRequisitos">NOTAS DE LOS REQUISITOS</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" rows="5" id="txtNotasRequisitos" name="notasRequisitos" placeholder="Ingrese notas para requisitos."></textarea>
+					</div>  	  
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="notasRequisitos">ARCHIVOS ADJUNTOS</label>
+					<div class="col-sm-10">
+					  <form enctype="multipart/form-data" id="frmFoto">      
+					  	<input type="file" name="archivo_adjunto" id="archivo_adjunto">
+            		  </form> 
+					</div>  	 					
+				</div>
+			</div>
+			<div id="tab-requisitos">
+				<div><button id="btnNRequisito" class="btn btn-primary">Nuevo</button></div>
+				<br>
+				<table name="Requisitos" id="tRequisitos" class="table table-bordered">
+					<thead>
+						<th>#</th>
+						<th>REQUISITO</th>	
+						<th></th>		
+					</thead>
+					<tbody>
+						<!--<tr>
+							<td>
+								<input type="number" id="numTramite" name="" min=1 max=100 value="1">
+							</td>
+							<td>
+								<textarea id="txtRequisito" rows="1" cols="120"></textarea>
+							</td>
+							<td>
+								<button id="btnElimRequisito" class="btn btn-danger">Eliminar</button>
+							</td>
+						</tr>-->
+					</tbody>
+
+				</table>
+			</div>
+			<div id="tab-derecho-pago">
+				<div><button id="btnNDerechoPago" class="btn btn-primary">Nuevo</button></div>
+				<br>
+				<table name="Derechos" id="tDerechosPago" class="table table-bordered">
+					<thead>
+						<th>Tributo</th>
+						<th>Importe (S/.)</th>
+						<th></th>
+					</thead>
+					<tbody>
+						<!--<tr>					
+							<td>
+								<textarea id="txtTributo" rows="1" cols="110" placeholder="Ingrese detalle"></textarea>
+							</td>
+							<td>
+								<input type="text" id="txtImporte" value="0.00">
+							</td>
+							<td>
+								<button id="btnElimDerechoPago" class="btn btn-danger">Eliminar</button>
+							</td>
+						</tr>	-->
+					</tbody>
+				</table>
+			</div>
+			<div id="tab-autoridades">
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="notasProcedimiento">Autoridad Competente</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" rows="5" id="txtAutoridadCompetente" name="autoridadCompetente" placeholder="Ingrese detalle."></textarea>
+					</div>  	  
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="notasProcedimiento">Instancia de Resolución Reconsideración</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" rows="5" id="txtInstanciaReconsidera" name="instanciaReconsidera" placeholder="Ingrese detalle."></textarea>
+					</div>  	  
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="notasProcedimiento">Instancia de Resolución Apelación</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" rows="5" id="txtInstanciaApela" name="instanciaApela" placeholder="Ingrese detalle."></textarea>
+					</div>  	  
+				</div>							
+			</div>
+		</div>
+	</form>
+<button id="btnGuardar" class="btn btn-success">Guardar</button>
+</div>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/Tramite/TramiteAgregar.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">

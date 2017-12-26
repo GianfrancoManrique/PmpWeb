@@ -1,0 +1,64 @@
+<form class="form-horizontal">
+<div class="container">
+<fieldset>
+<div class="content-page">
+			<div class="content">
+				<div class="container">
+					<legend>Mantenimiento de Alcalde</legend>
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="card-box">
+                                	<input type="text" id="txtIdMunicipio" value="<%=municipio %>" hidden>
+                                    <input type="text" name="idAlcalde" id="txtIdAlcalde" value="" hidden>
+                                    <h5><b>NOMBRES</b></h5>
+                                    <input type="text" class="form-control" name="nomAlcalde" id="txtNomAlcalde" placeholder="Ingrese nombre.">
+                                    <h5><b>APELLIDOS</b></h5>
+                                    <input type="text" class="form-control" name="apellAlcalde" id="txtApellAlcalde" placeholder="Ingrese apellidos.">
+                                    <input type="hidden" class="form-control" id="hFotoAlcalde" value=""> 
+                                    <h5><b>FOTO</b></h5>
+                                    <form enctype="multipart/form-data" id="frmFoto">      
+                                    <input type="file" class="file" id="fotoAlcalde" name="fotoAlcalde" data-show-upload="false">
+                                    <div id="errorBlock" class="help-block"></div>
+                                    </form>
+							</div>
+						</div>
+                        <div class="col-lg-6">
+							<div class="card-box">
+								<h5><b>RESEÑA</b></h5>
+								<textarea class="form-control" rows="21" id="txtResena" placeholder="Ingrese reseña del alcalde."></textarea><br>
+								<button id="btnGuardarAlcalde" class="btn btn-success">Guardar</button>
+								<button id="btnEliminarAlcalde" class="btn btn-danger">Eliminar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+</div>
+</fieldset>
+</div>
+</form>
+
+<script type="text/javascript" src="/js/Autoridades/AlcaldeAgregar.js"></script>
+<style type="text/css">
+/*	input[type='file'] {
+	    width:400px;
+	    height:25px;
+	    opacity:0
+	}*/
+	span[id^="spanRegidor"] {
+	    width: 400px;
+	    height:25px;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    font-size:13px;
+	    line-height: 25px;
+	    text-indent: 10px;
+	    pointer-events: none;
+	}
+
+	textarea {
+		white-space: normal;
+		text-align: justify;
+	}
+</style>

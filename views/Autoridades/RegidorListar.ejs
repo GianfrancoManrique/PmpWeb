@@ -1,0 +1,55 @@
+<div class="container">
+
+	<form class="form-horizontal">
+	<fieldset>		
+		<div class="content-page">
+		  <div class="content">
+			<div class="container">
+				<legend>Mantenimiento de Regidores</legend>	
+					<button class="btn btn-success" id="btnAgregarReg">Agregar</button>
+					<br><br>
+					<div class="row">					
+						<input type="text" id="txtIdMunicipio" value="<%=municipio %>" hidden>											
+						<% if(regidores.length>0) { %>
+						<div class="table-responsive">
+							<table class="table table-sm table-inverse">		
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>REGIDOR</th>					
+										<th>HABILITADO</th>
+									</tr>
+								</thead>
+								<tbody id="tbNoticias">
+							<% regidores.forEach(function(regidor){ %>						
+									<tr>
+										<td><i class="fa fa-user-circle" style="font-size:24px"></i></td>
+										<td><a href="/Regidor/Editar/<%= regidor.id %>"><%= regidor.nombres %> <%= regidor.apellidos %></a></td>
+										<td>
+											<% if(regidor.habilitado) { %>
+												<input type="checkbox" name="habilitado" checked disabled>
+											<% } else {%>
+												<input type="checkbox" name="habilitado" disabled>
+											<% } %>					
+										</td>
+										<td><br>										
+									</tr>		
+								
+							<% }) %>
+							</tbody>
+							</table>
+						</div>
+						<% } %>
+					</div>		
+			</div>
+		  </div>
+		</div>		
+	</fieldset>		
+	</form>
+</div>
+<script>	
+	$('#btnAgregarReg').click(function(e){
+		e.preventDefault();
+		window.location.href = '/Regidor/Agregar/'+$('#txtIdMunicipio').val();
+	})
+</script>

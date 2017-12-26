@@ -1,0 +1,100 @@
+<form class="form-horizontal" method="POST" action="/Usuario/Registrar">
+<div class="container">	
+	<fieldset>
+	 <div class="content-page">
+		  <div class="content">
+			<div class="container">
+				<legend>ADMINISTRADOR</legend>
+				<div class="row">					
+					<div class="col-lg-6">
+						<div class="card-box">
+							<br>
+							<legend>DATOS PERSONALES</legend>
+							<h5>NOMBRES</h5>
+							<input type="text" class="form-control" name="nombres" id="txtNombres"  placeholder="Ingrese nombres" required>
+							<h5>APELLIDOS</h5>
+							<input type="text" class="form-control" name="apellidos" id="txtApellidos" placeholder="Ingrese apellidos" required>
+							<h5>TIPO DOC.</h5>
+							<select name="tipodoc" id="lstTipoDoc" class="form-control">
+										<option value="-1" selected>Elija tipo doc.</option>
+										<% for (var i = 0; i<tiposDoc.length; i++) { %>
+											<option value="<%= tiposDoc[i].id %>"><%= tiposDoc[i].nombre %></option>		
+										<% } %>
+							</select>
+							<h5>NUMERO DOC.</h5>
+							<input type="number" class="form-control" name="numdoc" id="txtNumero" placeholder="Ingrese número" required min="0">
+							<h5>CORREO</h5>
+							<input type="email" class="form-control" name="correo" placeholder="usuario@dominio.com" id="txtCorreo" required>
+							<h5>CARGO</h5>
+							<input type="text" class="form-control" name="cargo" id="txtCargo"placeholder="Ingrese cargo">
+							<br>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="card-box">							
+							<input type="text" name="municipio" id="txtMunicipio" value="<%= municipio.id %>" hidden>
+							<br>
+							<legend>MUNICIPIO</legend>
+							<h5>DEPARTAMENTO</h5>
+							<input type="text" class="form-control"  name="" value="<%= municipio.departamento %>" disabled>	
+							<h5>PROVINCIA</h5>
+							<input type="text" class="form-control"  name="" value="<%= municipio.provincia %>" disabled>
+							<h5>DISTRITO</h5>			
+							<input type="text" class="form-control"  name="" value="<%= municipio.distrito %>" disabled>                  																	
+							<br>														
+						</div>
+					</div>
+				</div>			
+			</div>
+		  </div>
+	 </div>		
+	<br>
+	</fieldset>
+</div>
+
+<div class="container">
+	  <div class="content-page">
+		   <div class="content">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6">
+						<br>
+						<div class="card-box">
+							<legend>RESOLUCION Y/O CONTRATO</legend>
+							<h5>CODIGO</h5>
+							<input type="text" class="form-control" name="resolucion" id="txResolucion" placeholder="Ingrese resolucion" value="">
+							<h5>FECHA</h5>
+							<input type="text" class="form-control" name="fecresolucion" id="txtFecResol" >							
+							<br>	
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<br>
+						<div class="card-box">
+							 <legend>CREDENCIALES</legend>
+							 <h5>USUARIO</h5>
+							 <input type="text" class="form-control" name="usuario" id="txtUsuario"  disabled>
+							 <h5>CONTRASEÑA</h5>
+							 <input type="password" class="form-control" name="contrasena" id="txtContrasena"  disabled>
+							 <h5>HABILITADO</h5>
+							<input type="checkBox" name="habilitado" id="chkHabilitado" checked="checked">
+						</div>
+					</div>
+				</div>
+			</div>
+		  </div>
+	 </div>
+</div>
+<br>
+<div class="container">	
+<button id="btnRegistrar" class="btn btn-success" type="submit">Guardar</button>
+</div>
+</form>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/Usuario/AdminRegistrar.js"></script>	
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">	
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">

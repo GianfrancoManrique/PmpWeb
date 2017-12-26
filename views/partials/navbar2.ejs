@@ -1,0 +1,40 @@
+<div class="container">
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<ul class="nav navbar-nav">			
+			<li><a href="/General/<%=municipio %>">MUNICIPIO DE <%=req.session.distrito%></a></li>
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+				AUTORIDADES<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li><a href="/Alcalde/<%=municipio %>">ALCALDE</a></li>	
+					<li><a href="/Regidor/Listar/<%=municipio %>">REGIDORES</a></li>
+				</ul>
+			</li>
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+				TUPA  <span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li><a href="/Modulo/Listar/<%=municipio %>">MODULOS</a></li>
+					<li><a href="/Tramite/Listar/<%=municipio %>">TRAMITES</a></li>
+				</ul>
+			</li>
+			<li><a href="/Noticia/Listar/<%=municipio %>">NOTICIAS</a></li>
+			<li><a href="/Foto/Listar/<%=municipio %>">FOTOS</a></li>	
+			<li><a href="/Estadistica/<%=municipio %>">ESTADISTICAS</a></li>	
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+				ADMINISTRADOR<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li><%=req.session.user%></li>
+					<li><a href="/Noticia/Listar/<%=municipio %>">PERFIL</a></li>
+					<li><a href="/Noticia/Listar/<%=municipio %>">CERRAR SESION</a></li>
+				</ul>
+			</li>		
+		</ul>
+	</div>	
+</nav>
+</div>

@@ -1,0 +1,49 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,900" rel="stylesheet">
+<link rel="stylesheet" href="/css/lib/magnific-popup.css">
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
+<script src="https://use.fontawesome.com/57ca66c410.js"></script>
+<% include ../partials/header.ejs%>
+<section class="container-procedure">
+    <div class="container">
+        <div class="row">            
+            <div class="col-md-12">
+                <div class="section-procedure">
+                    <img src="https://s3.amazonaws.com/fotosmunicipios/logo_peru.png" alt="" class="img-circle">
+                    <h3>Municipio de <%=municipio.distrito%></h3>
+                    <p>Albúms de fotos</p>                  
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container">
+    <h2>Galería</h2>
+    <div class="row">
+        <% if(albums){ %>
+            <% albums.forEach(function(album){ %>
+                <div class="col-md-4">
+                    <div class="thumbnail">
+                        <a href="/Album/Fotos/<%=album.id%>" class="ajax-popup-link">
+                            <img src="<%=album.foto%>" alt="Lights" style="width:300px;height:250px">
+                            <div class="caption">
+                                <p><b><%=album.titulo%></b></p>
+                            </div>
+                        </a>
+                    </div>
+                </div>   
+            <% })%>
+        <% } %>                  
+    </div>
+</div>
+<% include ../partials/footer.ejs%>
+<script src="/js/lib/jquery.magnific-popup.min.js"></script>
+<script>
+     $('.ajax-popup-link').magnificPopup({
+            type: 'ajax',
+            cursor: 'mfp-ajax-cur',
+            modal:true,
+        });
+</script>

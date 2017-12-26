@@ -1,0 +1,107 @@
+<div class="container">
+
+	<form class="form-horizontal">
+	<fieldset>		
+		<div class="content-page">
+		  <div class="content">
+			<div class="container">
+				<legend>Editar regidor</legend>	
+					<div class="row">
+						<input type="text" id="txtIdMunicipio" value="<%=regidor.municipio %>" hidden>
+						<% if(regidor) { %>
+
+			<br>			
+		    <input type="text" name="idRegidor" id="txtIdRegidor" value="<%=regidor.id %>" hidden>
+
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="nomRegidor" >NOMBRES</label>
+			    <div class="col-sm-8">
+			   		<input type="text" class="form-control" name="nomRegidor" id="txtNomRegidor" value="<%=regidor.nombres %>">
+			    </div>				
+			</div>
+
+			<div  class="form-group">
+				<label class="control-label col-sm-2" for="apellRegidor">APELLIDOS</label>
+				<div class="col-sm-8"> 
+					<input type="text" class="form-control" name="apellRegidor" id="txtApellRegidor" value="<%=regidor.apellidos %>">
+				</div>	
+			</div>
+
+			<div class="form-group">
+				<input type="hidden" class="form-control" id="hFotoRegidor" value="<%=regidor.foto %>"> 
+				<label for="fImgContenido" class="control-label col-sm-2">FOTO</label>
+				<div class="col-sm-8">
+					<form enctype="multipart/form-data" id="frmFoto">      
+							<input type="file" class="file" id="fotoRegidor" name="fotoRegidor" data-show-upload="false">
+							<div id="errorBlock" class="help-block"></div>
+					</form>
+				</div>				
+			</div>
+            <div class="form-group"> 
+                <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label><input type="checkbox" id="cbHabilitado" checked> Habilitado</label>
+                </div>
+                </div>
+	        </div>
+			<div>
+				<label class="control-label col-sm-2"></label>
+				<button id="btnGuardarRegidor" class="btn btn-success">Guardar</button>
+				<button id="btnEliminarRegidor" class="btn btn-danger">Eliminar</button>
+			</div>		
+
+    <% } %>      
+					</div>
+			</div>
+		  </div>
+		</div>
+	</fieldset>
+	</form>
+</div>
+
+<div id="dialog-confirm" title="¿Desea eliminar alcalde?" hidden>
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>La información será eliminada permanentemente. Estás seguro?</p>
+</div>
+<!--librerias para mensaje confirmación-->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+
+	  var fotoRegidor=$('#hFotoRegidor').val();
+
+	  $("#fotoRegidor").fileinput({
+        showUpload: false,
+		maxFileCount: 1,
+        initialPreviewAsData: true,
+        initialPreview: [
+            fotoRegidor
+        ],
+        initialPreviewConfig: [
+            {caption: "Regidor.jpg", width: "120px", showDelete: false}
+        ]
+    });
+</script>
+<script type="text/javascript" src="/js/Autoridades/RegidorEditar.js"></script>
+<style type="text/css">
+/*	input[type='file'] {
+	    width:400px;
+	    height:25px;
+	    opacity:0
+	}*/
+	span[id^="spanRegidor"] {
+	    width: 400px;
+	    height:25px;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    font-size:13px;
+	    line-height: 25px;
+	    text-indent: 10px;
+	    pointer-events: none;
+	}
+
+	textarea {
+		white-space: normal;
+		text-align: justify;
+	}
+</style>

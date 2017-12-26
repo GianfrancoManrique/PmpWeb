@@ -1,0 +1,134 @@
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,900" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css">
+<!-- Magnific Popup -->
+<link rel="stylesheet" href="/css/lib/magnific-popup.css">
+<script src="https://use.fontawesome.com/57ca66c410.js"></script>
+<% include ../partials/header.ejs %>
+
+<div class="container-search-procedure">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="container-title-search-procedure">
+                    <h1>Encuentra el tramite que estas buscando</h1>
+                </div>
+                <div class="container-form-search-procedure">
+                    <form action="" method="POST">
+                        <input type="hidden" value="<%=municipio%>" id="municipio"><!--Agregado por GMV-->
+                        <select name="modulo" id="modulos">
+                            <option value="0" selected>Todos</option>
+                            <% modulos.forEach(function(modulo){ %>
+                            <option value="<%= modulo.id %>"><%= modulo.area %></option>
+                            <% }) %>
+                        </select>
+                        <input type="search" id="palabras" placeholder="Ejm: GERENCIA DE ADMINISTRACION TRIBUTARIA">
+                        <i id="lupa" class="fa fa-search" aria-hidden="true"></i>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumbs">
+                    <ul>
+                        <li><a href="/">Inicio</a></li>
+                        <!--<li>&gt;</li>-->
+                        <li><a href="/Perfil/4">Perfil Municipio</a></li>
+                        <!--<li>&nbsp;&gt;&nbsp;</li>-->
+                        <li><a href="/tramites/buscadordetramitestupa/4">Lista de Tramites</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-table-result">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Modulo</th>
+                                <th>Procedimientos</th>
+                                <th>Pagos</th>
+                                <th>Atención</th>
+                                <th>Ver</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbTramitesPortal">
+                            <!-- <% tramites.forEach(function(tramite){ %>
+                            <tr>
+                                <td><%= tramite.modulo %></td>
+                                <td><%= tramite.procedimiento %></td>
+                                <td><%= tramite.pago %></td>
+                                <td><%= tramite.atencion %></td>
+                                <td><a href="/tramite/detalleprocedimiento" class="ajax-popup-link"><i class="fa fa-file-text-o" aria-hidden="true"></i></a></td>
+
+                                <td>Soy un modulo</td>
+                                <td>Soy un procedimientos</td>
+                                <td>Pago unico></td>
+                                <td>Soy la Atención</td>
+                                <td><a href="/tramite/detalleprocedimiento" class="ajax-popup-link"><i class="fa fa-file-text-o" aria-hidden="true"></i></a></td>
+                            </tr>
+                            <% }) %> -->
+                             <tr>
+                                <td>Soy un modulo</td>
+                                <td>Soy un procedimientos</td>
+                                <td>Pago unico</td>
+                                <td>Soy la Atención</td>
+                                <td><a href="/tramite/detalleprocedimiento" class="ajax-popup-link"><i class="fa fa-file-text-o" aria-hidden="true"></i></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer.ejs %>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js"></script>
+<!-- Magnific Popup-->
+<script src="/js/lib/jquery.magnific-popup.min.js"></script>
+<script type="text/javascript" src="/js/Tramite/ListarTramites.js"></script><!--Agregado por GMV-->
+<script>
+    $(document).ready(function() {
+        //DataTable
+        $('#example').DataTable({
+            "language": {
+                "info": "",
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "paginate": {
+                "previous": "&lt;",
+                "next": "&gt;"
+                }
+            },
+            searching: false
+        });
+        //Magnific Popup
+        $('.ajax-popup-link').magnificPopup({
+            type: 'ajax',
+            cursor: 'mfp-ajax-cur',
+            modal:true,
+        });
+        //Magnific Popup on element created dinamically
+        $('body').magnificPopup({
+            delegate: 'a.ajax-popup-link',
+            type: 'ajax',
+            cursor: 'mfp-ajax-cur',
+            modal:true,
+        });
+    });
+</script>

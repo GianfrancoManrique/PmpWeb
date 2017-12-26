@@ -1,0 +1,48 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://use.fontawesome.com/57ca66c410.js"></script>
+
+<% include ../partials/header-search.ejs %>
+<section class="search-result">
+        <div class="container">
+                <div class="row"> 
+                        <div class="col-md-12">
+                                <div class="header-title">
+                                        <h1 class="title"><span>Resultado</span> de Busqueda</h1>
+                                </div>
+                        </div>
+                        <% if (resultados.length > 0){ %>
+                                <% resultados.forEach(function(resultado){ %>
+                                        <div class="col-sm-6 col-md-3 mg-bottom">
+                                                <div class="container-search-item">
+                                                        <div class="img-search-item">
+                                                                <a href="/Perfil/<%= resultado.id%>">
+                                                                        <img class="img-rpsv" src="/images/muni-default.jpg" alt="Imagen Municipalidad">
+                                                                </a>
+                                                        </div>
+                                                        <a href="/Perfil/<%= resultado.id%>"><h2> Municipio de <%= resultado.distrito %></h2></a>
+                                                        <!--<div class="noti-btn"><a class="btn-more" href="/Perfil/<%= resultado.id %>">Ver más</a></div>-->
+                                                        <!--<% if(resultado.lema != ""){%>
+                                                                <p><%= resultado.lema %></p>
+                                                        <%}%>-->
+                                                        <div class="social-networks">
+                                                                <% if(resultado.urlFacebook !== ""){%>
+                                                                <a target="_blank" href="<%= resultado.urlFacebook%>"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                                                <%}%>
+                                                                <% if(resultado.urlTwitter !== ""){%>
+                                                                <a target="_blank" href="<%= resultado.urlTwitter%>"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                                                <%}%>
+                                                                <% if(resultado.urlYoutube !== ""){%>
+                                                                <a target="_blank" href="<%= resultado.urlYoutube%>"><i class="fa fa-youtube" aria-hidden="true"></i></a>
+                                                                <%}%>
+                                                        </div>   
+                                                </div>
+                                        </div>
+                                <% }) %>
+                        <% }else { %>
+                                <p style="text-align: center; font-size: 23px"><strong>Oh no!</strong></p>
+                                <p style="text-align: center; font-size: 18px; margin-bottom: 16px"> No tenemos ninguna coincidencia con su búsqueda.</p>
+                        <% } %>
+                </div>
+        </div>
+</section>
+<% include ../partials/footer.ejs%>

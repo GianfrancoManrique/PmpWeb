@@ -1,0 +1,57 @@
+<div class="container">
+	<form class="form-horizontal" method="get" action="/Noticia/Agregar/<%=municipio%>">
+		<fieldset>
+			<div class="content-page">
+		  		<div class="content">
+					<div class="container">
+						<legend>Mantenimiento de Noticias</legend>
+						<div class="row">
+							<button class=" btn btn-success" id="btnAgregar" type="submit">Agregar</button> 	
+							<br>
+							<br>
+							<% if(noticias.length>0) { %>
+								<div class="table-responsive">
+									<table class="table table-hover">	
+										<thead class="thead-inverse">
+											<tr>
+												<th>#</th>
+												<th>Titulo</th>
+												<th>F.Creado</th>
+												<th>F.Modificado</th>
+												<th>Habilitado</th>
+											</tr>
+										</thead>
+										<tbody id="tbNoticias">
+										<% for (var i=0;i<noticias.length; i++) { %>
+											<tr>
+												<td><i class="fa fa-chain" style="font-size:24px"></i></td>
+												<td>
+													<a href="/Noticia/Editar/<%= noticias[i].id %>">
+													<%= noticias[i].titulo %>
+													</a>
+												</td>	
+												<td><%= noticias[i].feccreado %></td>
+												<td><%= noticias[i].fecmodificado %></td>
+												<td>
+													<% if(noticias[i].habilitado==1) { %>
+														<input type="checkbox" name="habilitado" checked disabled>
+													<% } else {%>
+														<input type="checkbox" name="habilitado" disabled>
+													<% } %>					
+												</td>
+											</tr>		
+										<% } %>
+										</tbody>
+									</table>
+								</div>
+							<% } %>
+						</div>
+					</div>
+		  		</div>
+			</div>								
+		</fieldset>	
+	</form>	
+</div>
+
+<script type="text/javascript" src="/js/Noticia/NoticiaListar.js"></script>
+<!-- Latest compiled and minified CSS -->

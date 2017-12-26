@@ -1,0 +1,166 @@
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,900" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css">
+<script src="https://use.fontawesome.com/57ca66c410.js"></script>
+
+<div class="container">		
+	<form class="form-horizontal">
+		<fieldset>
+		
+		 <div class="content-page">
+		  <div class="content">
+			<div class="container">
+				<legend>Búsqueda de Municipios</legend>
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="card-box">
+							
+								<h4>DEPARTAMENTO</h4>	
+								<select name="departamentos" id="listaDptos1" class="form-control">
+									<option value="." selected>Elija departamento</option>	
+									<% for(var i=0;i<departamentos.length;i++) { %>				
+									<option value="<%= departamentos[i] %>"><%= departamentos[i] %></option>
+									<% }; %>			
+								</select>
+								<br>
+								<h4>PROVINCIA</h4>
+								<select name="provincias" id="listaProvs1" class="form-control">
+									<option value="." selected>Elija provincia</option>				
+								</select>	
+								<br>	   
+								<h4>DISTRITO</h4>							
+								<select name="distritos" id="listaDstos1" class="form-control">
+									<option value="." selected>Elija distrito</option>				
+								</select>
+								<br>					
+								<button id="btnFiltrar" class="btn btn-success">Consultar</button>
+						</div>
+					</div>
+				</div>
+				<br>
+				<legend>Resultados de Búsqueda</legend>
+				<div class="row">
+					<div class="table-responsive">
+						
+						<table class="table" id="tMunicipalidades" >
+
+						<thead class="thead-inverse">
+						<tr>	
+							<th>#</th>				
+							<th>DEPARTAMENTO</th>
+							<th>PROVINCIA</th>
+							<th>DISTRITO</th>
+							<th>HABILITADO</th>
+						</tr>
+						</thead>
+
+						<tbody id="tbMunicipios">
+
+						<% for(var i=0; i<municipios.length; i++){ %>
+							<tr>	
+								<td><button id="btnMun<%=municipios[i].id%>" style="font-size:16px" class="btn btn-warning"><i class="fa fa-check-square-o" id="i"></i></button></td>		
+								<td><%= municipios[i].departamento %></td>		
+								<td><%= municipios[i].provincia %></td>	
+								<td><%= municipios[i].distrito %></td>	
+								<td>
+									<%if(municipios[i].habilitado){%>
+										<input type="checkbox" checked disabled>
+									<%} else{%>
+										<input type="checkbox" disabled>
+									<%} %>
+								</td>	
+							</tr>
+						<% }; %>
+
+						</tbody>	
+
+						</table>
+					</div>
+				</div>
+				<br>
+				<legend>MUNICIPIO&nbsp<button type="submit" id="btnNuevoMunicipio" class="btn btn-default">NUEVO</button></legend>
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="card-box">							
+								<h4>DEPARTAMENTO</h4>
+								<select name="departamento" id="listaDptos2" class="form-control" disabled>
+										<option value="Elija departamento" selected>Elija departamento</option>	
+										<% for(var i=0;i<departamentos.length;i++) { %>				
+										<option value="<%= departamentos[i] %>"><%= departamentos[i] %></option>
+										<% }; %>			
+								</select>
+								<br>
+								<h4>PROVINCIA</h4>
+								<select name="provincia" id="listaProvs2" class="form-control" disabled>
+										<option value="Elija provincia" selected>Elija provincia</option>		
+										<% for(var i=0;i<provincias.length;i++) { %>				
+										<option value="<%= provincias[i] %>"><%= provincias[i] %></option>
+										<% }; %>			
+								</select>	
+								<br> 		   
+								<h4>DISTRITO</h4>						
+								<select name="distrito" id="listaDstos2" class="form-control" disabled>
+										<option value="Elija distrito" selected>Elija distrito</option>	
+										<% for(var i=0;i<distritos.length;i++) { %>				
+										<option value="<%= distritos[i] %>"><%= distritos[i] %></option>
+										<% }; %>				
+								</select>
+								<br>						
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="card-box">
+							<h4>COMENTARIO</h4>
+							<textarea class="form-control" rows="4" id="txtComentario" placeholder="Ingrese sustento de activación"></textarea>
+							<h4><input type="checkbox" id="cbHabilitado">&nbspHABILITADO</h4>
+							<br>
+							<h4>ACCIONES</h4>							
+							<button type="submit" id="btnGuardarMunicipio" class="btn btn-success">GUARDAR</button>
+      						<button type="submit" id="btnEliminarMunicipio" class="btn btn-danger">ELIMINAR</button>
+      						<label id="lblId" hidden></label>
+						</div>
+					</div>
+				</div>
+				<br>
+				<legend>ADMINISTRADORES&nbsp<button type="submit" id="btnNuevoAdmin" class="btn btn-default">NUEVO</button></legend>
+				<div class="row">
+					<div class="table-responsive">
+						<table class="table" id="tAdmins">
+							<thead>	
+								<th>#</th>
+								<th>USUARIO</th>
+								<th>NOMBRES Y APELLIDOS</th>
+								<th>HABILITADO</th>
+							</thead>
+							<tbody id="tbAdmins">
+							</tbody>	
+						</table>
+					</div>
+				</div>
+			</div>
+		  </div>
+		 </div>
+	</fieldset>
+	</form>
+</div>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="/js/jquery.min.js"></script>
+<script>
+	/*
+	 document.getElementsByClassName("fa fa-check-square-o").addEventListener("click", function (e) {
+           alert(e.target.id);
+     } )
+	 */
+</script>
+<script type="text/javascript" src="/js/Municipio/MunicipioListar.js"></script>
+<style>
+	thead{
+		background:black
+	}
+	th{
+		color:white
+	}
+</style>

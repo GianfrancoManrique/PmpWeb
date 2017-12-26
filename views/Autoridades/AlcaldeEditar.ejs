@@ -1,0 +1,99 @@
+<form class="form-horizontal">
+<div class="container">			
+		<fieldset>		
+		 <div class="content-page">
+			<div class="content">
+				<div class="container">
+					<legend>Mantenimiento de Alcalde</legend>
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="card-box">
+								<% if(alcalde) { %>
+									<input type="text" id="txtIdMunicipio" value="<%=alcalde.municipio %>" hidden>
+									<input type="text" name="idAlcalde" id="txtIdAlcalde" value="<%=alcalde.id %>" hidden>
+									<h5><b>NOMBRES</b></h5>
+									<input type="text" class="form-control" name="nomAlcalde" id="txtNomAlcalde" value="<%=alcalde.nombres %>">
+									<h5><b>APELLIDOS</b></h5>
+									<input type="text" class="form-control" name="apellAlcalde" id="txtApellAlcalde" value="<%=alcalde.apellidos %>">
+									<br>
+									<input type="hidden" class="form-control" id="hFotoAlcalde" value="<%=alcalde.foto %>"> 
+									<form enctype="multipart/form-data" id="frmFoto">      
+										<input type="file" class="file" id="fotoAlcalde" name="fotoAlcalde" data-show-upload="false" required>
+										<div id="errorBlock" class="help-block"></div>
+									</form>
+								<%}%>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="card-box">
+								<h5><b>RESEÑA</b></h5>
+								<textarea class="form-control" rows="21" id="txtResena" placeholder="Ingrese reseña del alcalde."><%= alcalde.resena %></textarea>
+								<button id="btnGuardarAlcalde" class="btn btn-success">Guardar</button>
+								<button id="btnEliminarAlcalde" class="btn btn-danger">Eliminar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		 </div>
+		</fieldset>	
+</div>
+</form>
+
+<div id="dialog-confirm" title="¿Desea eliminar alcalde?" hidden>
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>La información será eliminada permanentemente. Estás seguro?</p>
+</div>
+<script>
+	 console.log('Alcalde/Editar');
+
+	  var fotoAlcalde=$('#hFotoAlcalde').val();
+	   if(fotoAlcalde!='null'){
+		 $("#fotoAlcalde").fileinput({
+			showUpload: false,
+			maxFileCount: 1,
+			initialPreviewAsData: true,
+			initialPreview: [
+				fotoAlcalde
+			],
+			initialPreviewConfig: [
+				{caption: "Alcalde.jpg", width: "120px", showDelete: false}
+			]
+    	});
+	   }
+	   
+
+</script>
+<script src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/Autoridades/AlcaldeEditar.js"></script>
+<style type="text/css">
+/*	input[type='file'] {
+	    width:400px;
+	    height:25px;
+	    opacity:0
+	}*/
+	span[id^="spanRegidor"] {
+	    width: 400px;
+	    height:25px;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    font-size:13px;
+	    line-height: 25px;
+	    text-indent: 10px;
+	    pointer-events: none;
+	}
+
+	textarea {
+		white-space: normal;
+		text-align: justify;
+	}
+	thead{
+		background:black
+	}
+	th{
+		color:white
+	}
+</style>
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

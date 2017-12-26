@@ -1,0 +1,80 @@
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+<link href="/themes/explorer/theme.css" media="all" rel="stylesheet" type="text/css"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="/js/plugins/sortable.js" type="text/javascript"></script>
+<script src="/js/fileinput.js" type="text/javascript"></script>
+<script src="/js/locales/fr.js" type="text/javascript"></script>
+<script src="/js/locales/es.js" type="text/javascript"></script>
+<script src="/themes/explorer/theme.js" type="text/javascript"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>	
+
+<h1>Albums</h1>
+
+<div class="container kv-main">
+
+    <form enctype="multipart/form-data" id="frmFotos" method="POST">
+        <div class="form-group">
+            <div id="errorBlock" class="help-block"></div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <input id="file-5" name="fotitos" class="file" type="file" multiple data-preview-file-type="any" data-upload-url="/subir">
+        </div>
+    </form>
+
+    <hr>
+    <br>
+</div>
+
+<fieldset>  
+    <legend>Crear album</legend>  
+    <input type="text" id="txtAlbum" name="album" placeholder="Álbum sin título">
+
+</fieldset>
+
+<% albums.forEach(function(album){ %>
+     
+     <b><%= album.titulo %></b><br>
+     <% for (var i=0;i<album.fotos.length;i++){ %>
+            <% if(i==0){ %>
+                <a href="/Albums/<%= album.id%>"><img src="<%= album.fotos[0].url %>" alt=""></a>              
+            <% } %>
+     <% } %>
+     <div>Fotos <%= album.fotos.length %></div>
+     <br>
+<% })%>
+    
+<script type="text/javascript">
+$(document).ready(function(){
+    
+    $('#frmFotos').submit(function(e){
+        e.preventDefault();
+    });
+
+    $('a[href^="/subir"]').on('click',function(e){
+        e.preventDefault();
+
+        
+        $.each($("#file-5")[0].files,function(i,file){
+            var formData=new FormData();
+            formData.append("foto",file);
+              $.ajax({
+                url:"/subir",
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                success: function(data){                    
+                    if (data){
+                       console.log(data);
+                    }
+
+                }
+             });
+        })
+
+     
+    })
+})
+</script>

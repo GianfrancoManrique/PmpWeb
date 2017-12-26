@@ -1,0 +1,318 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+a{
+    text-decoration: none !important;
+}
+/* Fin Reset */
+
+body{
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.banner{
+    background: url(../images/fondo.svg) no-repeat bottom/cover;
+    max-width: 100%;
+    height: 600px;
+    overflow: hidden;
+}
+
+.banner #frmBuscador{
+    position: absolute;
+    width: 60%;
+    background: rgba(0, 0, 0,.3);
+    padding: 15px;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%,-50%);
+    border-radius: 5px;
+}
+.banner #frmBuscador #lupa{
+    position: fixed;
+    display: inline-block;
+    right: 13px;
+    background: #F03A2F;
+    height: 50px;
+    top: 15px;
+    color: #fff;
+    padding: 10px;
+    font-size: 20px;
+    line-height: 30px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.banner #frmBuscador input{
+    height: 50px;
+    border: none;
+    font-size: 20px;
+}
+
+.logo-index img{
+    width: 100px;
+    padding: 10px 0;
+}
+.footer-pmp{
+    padding: 30px 0;
+    text-align: center;
+    border-top: dashed 1px #333B48;
+}
+.links-admin li{
+    display: inline-block;
+}
+.links-admin li a{
+    color: rgba(0,0,0,.5);
+}
+.links-admin li:first-child:after,.links-admin li:nth-child(2):after{
+    content: "·";
+    color: rgba(0,0,0,.5);
+    display: inline-block;
+    padding: 0 5px;
+}
+#exampleModalLabel{
+    display: inline-block;
+    font-weight: bold;
+}
+
+/*=================
+Municipalidad Index
+=================*/
+.municipalidades{
+    background: #F7F6F5;
+    padding-bottom: 50px;
+}
+.noticias{
+    padding-bottom: 50px;
+}
+.municipalidades .title-index, .noticias .title-index{
+    margin: 50px 0;
+    text-align:center;
+    font-size: 23px;
+    font-weight: 500;
+}
+
+.municipalidades .title-index:after, .noticias .title-index:after{
+    content: "";
+    display: inline-block;
+    width: 50px;
+    height: 2px;
+    background: #F03A2F;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+.municipalidades .title-index:before, .noticias .title-index:before{
+    content: "";
+    display: inline-block;
+    width: 50px;
+    height: 2px;
+    background: #F03A2F;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.muni-box{
+    padding: 10px;
+    text-align: center;
+}
+
+.muni-box .muni-portada{
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+}
+.muni-box .muni-portada img{
+    width: 100%;
+}
+
+.muni-box .icon-muni{
+    width: 50px;
+    background: #F03A2F;
+    padding: 5px;
+    position: absolute;
+    bottom: 76px;
+}
+.muni-box h2{
+    margin: 10px;
+    font-size: 20px;
+    color: rgba(0,0,0,.5);
+}
+.muni-box a{
+    text-decoration: none;
+    color:#F03A2F;
+}
+.muni-box a h1{
+    margin: 0;
+    font-size: 22px;
+}
+/*=================
+Noticias Index
+=================*/
+.noticias .noti-box{
+    margin: 0 5px;
+    padding: 10px;
+    border-radius: 5px;
+    border: dashed 1px rgba(0,0,0,.2);
+    /*min-height: 500px !important;*/
+    min-height: 460px !important;
+    position: relative;
+}
+.noti-box .noti-port img{
+    height: 100%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.noti-box .noti-port{
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+}
+.noti-data .noti-title{
+    color: #333B48;
+}
+/*.noti-data .noti-title h1{
+    margin: 10px 0;
+    font-size: 18px;
+}*/
+.noti-data .noti-fecha{
+    color: rgba(0,0,0,.4);
+}
+.noti-data .noti-res{
+    margin-top: 5px;
+}
+/*.noti-box .more{
+    padding: 10px 20px;
+    background: #F03A2F;
+    color: #fff;
+    border-radius: 10px;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}*/
+/* Tablet Styles */
+@media only screen and (min-width : 736px) and (max-width : 995px){
+    .banner #frmBuscador{
+        width: 80%;
+    }
+    .noti-box .noti-port{
+        height: 200px;
+    }
+}
+
+
+/* Phone Styles */
+@media only screen and (min-width : 320px) and (max-width : 736px){
+
+    .noticias .noti-box{
+        min-height: 400px !important;
+    }
+    .noti-box .noti-port{
+        height: 180px;
+    }
+    .banner #frmBuscador{
+        width: 90%;
+    }
+    .banner{
+        background: url(../images/fondo-res.svg) no-repeat bottom/cover;
+        max-width: 100%;
+        height: 600px;
+        overflow: hidden;
+    }
+
+    .municipalidades .title-index:after,.municipalidades .title-index:before, .noticias .title-index:after,.noticias .title-index:before{
+        display: none;
+    }
+    .municipalidades .title-index span,.noticias .title-index span {
+        display: block;
+    }
+    .municipalidades .title-index span:after, .noticias .title-index span:after{
+        content: "";
+        display: inline-block;
+        width: 50px;
+        height: 2px;
+        background: red;
+        vertical-align: middle;
+        margin-left: 10px;
+    }
+    .municipalidades .title-index span:before, .noticias .title-index span:before{
+        content: "";
+        display: inline-block;
+        width: 50px;
+        height: 2px;
+        background: red;
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
