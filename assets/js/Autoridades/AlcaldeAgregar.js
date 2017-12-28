@@ -20,36 +20,42 @@ function fnGuardarAlcalde(e){
 	formData.append('resena',$('#txtResena').val());
 	formData.append('municipio',$('#txtIdMunicipio').val());
 	formData.append('habilitado',true);
-	formData.append('fotoAlcalde',$('#fotoAlcalde')[0].files[0]);	
-	console.log($('#fotoAlcalde')[0].files[0]);
-	if($('#txtNomAlcalde').val()==''){
-		alert('Nombre no válido.');
-	}else if($('#txtApellAlcalde').val()==''){
-		alert('Apellido no válido.');
-	}else if($('#fotoAlcalde')[0].files[0].length==0 && id==0){
-		alert('Alcalde requiere una foto.');
-	}else{		
-		$.ajax({
-			url:'/Alcalde/Registrar',
-			data: formData,
-			processData: false,
-			contentType: false,
-			type: 'POST',
-			success: function(data){
-				alert('Alcalde creado.');
-				window.location.href = "/Alcalde/"+$('#txtIdMunicipio').val();
-				/*
-				if(id=='0'){
-					window.location.href = "/Autoridades/"+$('#txtIdMunicipio').val(); 
-				}else{
-					window.location.href = "/Autoridades/"+$('#txtIdMunicipio').val(); 
-				}
-				*/			  	
-			}
-		});
-	}
 	
+	if($('#txtNomAlcalde').val()==''){
+		alert('Nombre de alcalde no válido.');
+		return;
+	}
+		
+	if($('#txtApellAlcalde').val()==''){
+		alert('Apellido de alcalde no válido.');
+		return;
+	}
+		
+	if(document.getElementsByClassName('kv-file-content').length==0){
+		alert('No se ha cargado la foto del alcalde.');
+		return;
+	}else{
+		formData.append('fotoAlcalde',$('#fotoAlcalde')[0].files[0]);	
+	}
 
+	$.ajax({
+		url:'/Alcalde/Registrar',
+		data: formData,
+		processData: false,
+		contentType: false,
+		type: 'POST',
+		success: function(data){
+			alert('Alcalde creado.');
+			window.location.href = "/Alcalde/"+$('#txtIdMunicipio').val();
+			/*
+			if(id=='0'){
+				window.location.href = "/Autoridades/"+$('#txtIdMunicipio').val(); 
+			}else{
+				window.location.href = "/Autoridades/"+$('#txtIdMunicipio').val(); 
+			}
+			*/			  	
+		}
+	});
 }
 
 function fnGuardarRegidor(e){

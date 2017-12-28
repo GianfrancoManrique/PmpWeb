@@ -21,13 +21,10 @@ function fnGuardarAlcalde(e)
 
 	if($('#fotoAlcalde')[0].files[0]==undefined){
 		url='/Alcalde/Actualizar1/'+$('#txtIdAlcalde').val();
-		//Se retira foto
-		if ($('#hFotoAlcalde').val()!='null'){
-
+		if(document.getElementsByClassName('kv-file-content').length==0){
+			alert('No se ha cargado foto del alcalde.');
+			return;
 		}
-		//No cambio foto
-		
-		
 	}else{
 		formData.append('fotoAlcalde',$('#fotoAlcalde')[0].files[0]);	
 		url='/Alcalde/Actualizar2/'+$('#txtIdAlcalde').val();

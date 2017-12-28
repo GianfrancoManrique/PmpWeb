@@ -8,6 +8,7 @@ $(document).ready(function(){
 	$('#btnGuardarMunicipio').on('click',fnGuardarMunicipio);
 
 	$('a[id^="lnkTel"').on('click',fnEliminarTelefono);
+
 })
 function fnGuardarMunicipio(e){
 		e.preventDefault();
