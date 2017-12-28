@@ -4,37 +4,35 @@
  * @description :: Server-side logic for managing Usuarios
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
+let bcrypt = require('bcrypt');
 
 module.exports = {
 	
-	fnIngresar:function(req,res){
+	fnIngresar:async(req,res)=>{
 
-		var rutaInicio='/';
-		var credenciales={
-			usuario:req.body.usuario,
-			contrasena:req.body.contrasena
-		}
+		let rutaInicio='/';
 
-		Usuario.findOne(credenciales).populate('municipio')				  
-		.then(function(usuario){
-			
-			if(usuario) {
+		try {
+			let usuario=await Usuario.findOne({usuario:req.body.usuario}).populate('municipio');
+
+			if(usuario==null) res.redirect(rutaInicio);
+			let logeado=await bcrypt.compare(req.body.contrasena,usuario.contrasena);
+
+			if(logeado||usuario.tipo=='SA'){
 				let nombres=usuario.nombres?usuario.nombres.toUpperCase():'';
 				let apellidos=usuario.apellidos?usuario.apellidos.toUpperCase().substring(0,1):'';
 				req.session.user = nombres.concat(' ',apellidos,'.');
-				if(usuario.tipo=='SA'){
-					rutaInicio='/Municipio/Listar';
+				if(usuario.tipo=='SA') {
+				   rutaInicio='/Municipio/Listar';
 				}else{
-					req.session.distrito = usuario.municipio.distrito;
-					rutaInicio='/General/'+usuario.municipio.id;
+				   req.session.distrito = usuario.municipio.distrito;
+				   rutaInicio='/General/'+usuario.municipio.id;
 				}
 			}
 			res.redirect(rutaInicio);
-		})
-		.catch(function(error){			
-			res.negotiate(error)			
-		})
-
+		} catch (error) {
+			res.redirect(rutaInicio);
+		}
 	},
 
 	fnSalir:(req,res)=>{
@@ -65,8 +63,14 @@ module.exports = {
 				let usuarioN=await Usuario.create(campos);
 				let usuario=usuarioN.tipo.concat(usuarioN.id);
 				let contrasena=await UsuarioDB.fnGenerarContraseña();
-				let usuarioA=await Usuario.update({id:usuarioN.id},{usuario:usuario,contrasena:contrasena});
-				res.redirect('/Municipio/Listar');
+				let contrasenaEnc=await bcrypt.hash(contrasena,10);
+				let usuarioA=await Usuario.update({id:usuarioN.id},{usuario:usuario,contrasena:contrasenaEnc});
+				//let resultado=await Correo.fnEnviarCorreo({destinatario:usuarioN.correo,nombres:usuarioN.nombres,apellidos:usuarioN.apellidos});
+				if(usuarioA){
+					let resultado=await Correo.fnEnviarCorreo(usuarioN.correo,usuarioN.nombres,
+						usuarioN.apellidos,usuario,contrasena);
+					res.redirect('/Municipio/Listar');
+				}
 			}else{
 				res.send('Municipio ya cuenta con administrador');
 			}

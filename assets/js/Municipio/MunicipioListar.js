@@ -11,9 +11,7 @@ $(document).ready(function(){
 	$("#listaProvs2").on("change",fnCargarDistritos);
 	$("#btnFiltrar").on("click",fnFiltrar);
 
-	//$("a[id^='lnkMun']" ).on("click",fnEditarMunicipio);
-	//$("button[id^='btnMun']" ).on("click",fnEditarMunicipio);
-	$("button[id^='btnMun']" ).on("click",fnEditarMunicipio);
+	$("a[id^='btnMun']" ).on("click",fnEditarMunicipio);
 
 	$("#btnNuevoMunicipio").on("click",fnAgregarMunicipio);
 	$("#btnNuevoAdmin").on("click",fnAgregarAdministrador);
@@ -38,7 +36,7 @@ function fnFiltrar(e){
 	  		var tdId=document.createElement("td");
 	  		var a=document.createElement("a")
 	  		a.id="lnkMun"+data.municipios[i].id;
-	  		a.innerHTML=data.municipios[i].id;			  
+	  		a.innerHTML='MUN-'+data.municipios[i].id;			  
 	  		a.addEventListener("click",fnEditarMunicipio,false);
 	  		var tdDpto=document.createElement("td")
 	  		tdDpto.innerHTML=data.municipios[i].departamento;
@@ -197,7 +195,7 @@ function fnEditarMunicipio(e){
 			$("#listaDstos2").val(data[0].distrito);
 			$("#txtComentario").val(data[0].comentario);
 			$("#cbHabilitado").prop("checked",data[0].habilitado);
-
+			
 			fnMostrarAdministradores(id);
 
 		})
@@ -207,45 +205,47 @@ function fnEditarMunicipio(e){
 
 function fnMostrarAdministradores(id){
 
+		$("#tbAdmins").empty();
+
 		$.get('/Usuario/Listar/'+id,function(data){
-			console.log(data);
-			$("#tbAdmins").empty();
-
-			for (var i = 0; i<data.usuarios.length; i++) {
-
-				var tr=document.createElement("tr");
-
-				var td1=document.createElement("td");
-				var a=document.createElement("a");
-				a.id="lnkA"+data.usuarios[i].id;
-				a.innerHTML=data.usuarios[i].id;
-				a.href="/Usuario/Editar/"+data.usuarios[i].id;
-
-				td1.append(a);
-				tr.append(td1);
-
-				var td2=document.createElement("td");
-				td2.innerHTML=data.usuarios[i].usuario;
-
-				tr.append(td2);
-
-				var td3=document.createElement("td");
-				td3.innerHTML=data.usuarios[i].nombres.toUpperCase()+" "+data.usuarios[i].apellidos.toUpperCase();
-
-				tr.append(td3);
-
-				var td4=document.createElement("td");
-				var input=document.createElement("input");
-				input.type="checkbox"
-				input.checked=data.usuarios[i].habilitado?true:false;
-				input.disabled=true;
-
-				td4.append(input);
-				tr.append(td4);
-
-				$("#tbAdmins").append(tr);
 			
-			}			
+			if(data.usuarios.length>0)
+			{
+				for (var i = 0; i<data.usuarios.length; i++) 
+				{
+					var tr=document.createElement("tr");
+
+					var td1=document.createElement("td");
+					var a=document.createElement("a");
+					a.id="lnkA"+data.usuarios[i].id;
+					a.innerHTML='ADMIN-'+data.usuarios[i].id;
+					a.href="/Usuario/Editar/"+data.usuarios[i].id;
+
+					td1.append(a);
+					tr.append(td1);
+
+					var td2=document.createElement("td");
+					td2.innerHTML=data.usuarios[i].usuario;
+
+					tr.append(td2);
+
+					var td3=document.createElement("td");
+					td3.innerHTML=data.usuarios[i].nombres.toUpperCase()+" "+data.usuarios[i].apellidos.toUpperCase();
+
+					tr.append(td3);
+
+					var td4=document.createElement("td");
+					var input=document.createElement("input");
+					input.type="checkbox"
+					input.checked=data.usuarios[i].habilitado?true:false;
+					input.disabled=true;
+
+					td4.append(input);
+					tr.append(td4);
+
+					$("#tbAdmins").append(tr);
+				}		
+			}	
 		})
 }	
 
