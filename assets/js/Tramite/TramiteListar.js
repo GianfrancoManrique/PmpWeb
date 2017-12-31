@@ -19,12 +19,16 @@ function fnFiltrarTramites(e){
 
 	e.preventDefault();
 	$.post('/Tramite/Panel/Buscar',{modulo:$('#listaModulos').val(),nombre:$('#txtNombre').val()},function(data){
-		fnMostrarTramites(data.tramites);
+		$('#tbTramites').empty();
+		if(data.tramites.lenght>0){
+			fnMostrarTramites(data.tramites);
+		}else{
+			$('#tbTramites').append("<h3>No existen resultados</h3>");
+		}
 	})
 }
 
 function fnMostrarTramites(tramites){
-	$('#tbTramites').empty();
 	tramites.forEach(function(tramite){
 		console.log(tramite);
 		var tr=document.createElement('tr');

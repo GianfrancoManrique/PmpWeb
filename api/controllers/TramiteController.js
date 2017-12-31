@@ -9,7 +9,7 @@ module.exports = {
 
 	fnConsultarTramites:async(req,res)=>{
 		try {
-			let modulos=await TramiteDB.fnConsultarModulos();
+			let modulos=await TramiteDB.fnConsultarModulos(req.params.municipio);
  			Tramite.query('SELECT id, modulo,procedimiento,feccreado,fecmodificado from sp_consultartramitesxmunicipio('+req.params.municipio+')',
  	 		function(error,resultado){
 				let tramites=resultado?resultado.rows:null;

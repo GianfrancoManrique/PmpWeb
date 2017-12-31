@@ -63,7 +63,7 @@ module.exports = {
 
 		var campos={titulo:req.body.titulo,resumen:req.body.resumen,
 			contenido:req.body.contenido,relevancia:req.body.relevancia,
-			municipio:req.body.municipio,habilitado:req.body.habilitado=="on"?1:0
+			municipio:req.body.municipio,habilitado:req.body.habilitado
 		}
 
 		Noticia.update(filtro,campos).exec(function(error,noticia){
@@ -78,7 +78,7 @@ module.exports = {
 		var filtro={id:req.params.id}
 		var campos={titulo:req.body.titulo,resumen:req.body.resumen,
 			contenido:req.body.contenido,relevancia:req.body.relevancia,
-			municipio:req.body.municipio,habilitado:req.body.habilitado=="on"?1:0
+			municipio:req.body.municipio,habilitado:req.body.habilitado
 		}
 
 		Noticia.update(filtro,campos)

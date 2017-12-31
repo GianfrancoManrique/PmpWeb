@@ -40,7 +40,11 @@
             <div class="form-group"> 
                 <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
-                    <label><input type="checkbox" id="cbHabilitado" checked> Habilitado</label>
+					<% if(regidor.habilitado) { %>
+						<label><input type="checkbox" id="cbHabilitado" checked> Habilitado</label>
+					<% }else{ %>
+						<label><input type="checkbox" id="cbHabilitado"> Habilitado</label>
+					<% } %>
                 </div>
                 </div>
 	        </div>

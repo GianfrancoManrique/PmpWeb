@@ -9,7 +9,7 @@ var AutoridadDB = {
 	},
     fnConsultarRegidores:async(municipio)=>{	
 		try{
-            let regidores=await Autoridad.find({municipio:municipio,tipo:'R',sort:'nombres ASC'});
+            let regidores=await Autoridad.find({municipio:municipio,tipo:'R',habilitado:true,sort:'nombres ASC'});
             return regidores;
         }catch(error){
 			console.log(error);

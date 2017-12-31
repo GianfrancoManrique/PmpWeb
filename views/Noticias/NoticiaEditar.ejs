@@ -32,7 +32,11 @@
                   <% } %> 
                   <h5><b></b></h5>  
                    <div class="checkbox">
-                    <label><input type="checkbox" id="cbHabilitado" checked> HABILITADO</label>
+                    <% if(noticia.habilitado) { %>
+                      <label><input type="checkbox" id="cbHabilitado" checked> HABILITADO</label>
+                    <% }else{ %>
+                      <label><input type="checkbox" id="cbHabilitado"> HABILITADO</label>
+                    <% } %>
                 	</div>
                   <h5><b></b></h5>
                   <button class="btn btn-success" id="btnGuardar">Guardar</button>
@@ -44,25 +48,7 @@
         </div>
     </div>
     </fieldset>
-  </div>
-  <div class="container">   
-    
-      </div>
-     
-     
-   
- 
-      <div class="form-group"> 
-          <div class="col-sm-offset-2 col-sm-10">
-           
-          </div>
-      </div>
-       <div class="form-group"> 
-		    <div class="col-sm-offset-2 col-sm-10">
-		    
-		    </div>
-	 </div>   
-  </div>
+  </div>     
 </form>    
   <script>
       //Carga de editor HTML
@@ -92,26 +78,40 @@
 		  formData.append('resumen',$('#txtResumen').val());		
       formData.append('contenido',$('#htmleditor').summernote('code'));	//extrae HTML
 		  formData.append('relevancia',parseInt($('#numRelevancia').val()));	
-		  formData.append('habilitado',$("#cbHabilitado").val()=='on'?true:false);
+		  formData.append('habilitado',$("#cbHabilitado").prop('checked'));
 		  formData.append('municipio','<%= noticia.municipio %>');
       if($('#foto')[0].files[0]==undefined){
-		    url='/Noticia/Actualizar1/'+'<%= noticia.id %>';
+          url='/Noticia/Actualizar1/'+'<%= noticia.id %>';
+          if(document.getElementsByClassName('kv-file-content').length==0){
+            alert('No se ha cargado foto de la noticia.');
+            return;
+          }   
 	    }else{
-		    formData.append('foto',$('#foto')[0].files[0]);	
-		    url='/Noticia/Actualizar2/'+'<%= noticia.id %>';
+          formData.append('foto',$('#foto')[0].files[0]);	
+          url='/Noticia/Actualizar2/'+'<%= noticia.id %>';
 	    }
 
-         if($('#txtTitulo').val()==''){
-            alert('Título no válido.');
-        }else if($('#txtResumen').val()==''){
-            alert('Resumen no válido.');
-        // }else if($("#foto")[0].files[0]==undefined){
-        //     alert('Noticia requiere una foto.');
-        }else if($('#htmleditor').summernote('isEmpty')){
-            alert('Contenido no válido.');
-        }else if($('#numRelevancia').val()==undefined){
-           alert('Valor de relevancia no válida.');
-        }else{					
+      if($('#txtTitulo').val()==''){
+          alert('Título no válido.');
+          return;
+      }
+      
+      if($('#txtResumen').val()==''){
+          alert('Resumen no válido.');
+          return;
+      }
+     
+      if($('#htmleditor').summernote('isEmpty')){
+         alert('Contenido no válido.');
+         return;
+      }
+      let relevancia=$('#numRelevancia').val(); 
+      if(relevancia==undefined || relevancia<1 || relevancia>5){
+        alert('Valor de relevancia no válida.');
+        return;
+      }
+        
+        else{					
           $.ajax({url:url,data: formData,processData: false,contentType: false,type: 'POST'})
           .done(function(data){
               if(data.noticia){
@@ -122,10 +122,13 @@
       }
     }
     function fnEliminar(e){
+      e.preventDefault();
       $.post('/Noticia/Eliminar',{id:'<%=noticia.id%>'})
       .done(function(data){
         if(data.noticia){
+          //console.log(data.noticia);
           alert('Noticia eliminada');
+          window.location.href = '/Noticia/Listar/'+data.noticia[0].municipio;
         }
       })
     }

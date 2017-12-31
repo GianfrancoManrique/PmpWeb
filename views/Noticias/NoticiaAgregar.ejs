@@ -77,7 +77,7 @@
       //formData.append('contenido',$('#htmleditor').summernote('code'));	//extrae HTML
       formData.append('contenido',$('#htmleditor').val());	//extrae HTML
 		  formData.append('relevancia',parseInt($('#numRelevancia').val()));	
-		  formData.append('habilitado',$("#cbHabilitado").val()=='on'?true:false);
+		  formData.append('habilitado',$("#cbHabilitado").prop('checked'));
 		  formData.append('municipio',$("#txtIdMunicipio").val());
       //console.log($('#fotoNoticia')[0].files[0]);
       formData.append('fotoNoticia',$('#fotoNoticia')[0].files[0]);
