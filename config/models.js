@@ -17,8 +17,8 @@ module.exports.models = {
   * connections (see `config/connections.js`)                                *
   *                                                                          *
   ***************************************************************************/
-  //connection: 'conBDMunicipios',
-  connection:'conMunicipiosBD',
+  connection: 'conBDMunicipios',
+  //connection:'conProdPMP',
 
   /***************************************************************************
   *                                                                          *

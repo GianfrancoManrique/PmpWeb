@@ -97,8 +97,17 @@ module.exports.connections = {
      user:'pwvstojjjvygft',
      password:'9472cd8725b95566d7b5d75256f6ec95b9dd5599f7d8dae612d71b60548641d7',
      ssl:'true'
-  }
+  },
 
+  conProdPMP:{
+    adapter: 'sails-postgresql',
+    host:'ec2-50-16-196-238.compute-1.amazonaws.com',
+    port:5432,
+    database:'d2hj34dm7dh31i',
+    user:'pzbmzpztoucjee',
+    password:'87a86a166dc78961fc1795554730e010d3ddd73f31ffa4a566d71962c753823c',
+    ssl:'true'
+  }
 
   /***************************************************************************
   *                                                                          *
