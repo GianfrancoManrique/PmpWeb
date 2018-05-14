@@ -1,11 +1,10 @@
 $(document).ready(function(){
     var url="";
     var filas;    
-    $("#tabsTramite" ).tabs({
-  classes: {
-    "ui-tabs": "highlight"
-  }
-});
+
+    $("#tabsTramite" ).tabs();
+    //$("#tabsTramite" ).tabs({classes: {"ui-tabs": "highlight"}});
+
     $("button[id^='btnElimTramite']").on("click",fnEliminar);
     $("button[id^='btnActualTramite']").on("click",fnActualizarTramite);   
     $('button[id^="btnAgregarRequisito"]').on('click',fnAgregarRequisito);

@@ -1,237 +1,220 @@
-<div><input type="text" id="txtMunicipio" value="" hidden></div>
-<div class="container">
-	<form class="form-horizontal">
-	<fieldset>
-	<legend>
-		<h3>Mantenimiento de Trámite</h3>	
-	</legend>
-	</fieldset>
-	</form>
-</div>
-<div class="container">	
-	<form class="form-horizontal">
-		<div id="tabsTramite">
-			<ul>
-				<li><a href="#tab-general">1. Información General</a></li>
-				<li><a href="#tab-información">2. Información Adicional</a></li>
-				<li><a href="#tab-requisitos">3. Requisitos</a></li>
-				<li><a href="#tab-derecho-pago">4. Derechos de Pago</a></li>
-				<li><a href="#tab-autoridades">5. Autoridades</a></li>
-			</ul>
-			<div id="tab-general">		
-				<br>
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="modulo">MODULO</label>
-					<div class="col-sm-10">
-						<select id="listaModulos" class="form-control">
-							<option value="0">Elija módulo</option>	
-							<% if(modulos){ %>
-								<% modulos.forEach(function(modulo){ %>
-									<% if(modulo.habilitado){ %>
-										<% if(modulo.id==tramite.modulo){%>
-											<option value="<%=modulo.id %>" selected><%=modulo.area %></option>
-										<% } else {%>
-											<option value="<%=modulo.id %>"><%=modulo.area %></option>
-										<% } %>						
-									<% } %>		    		
-								<% }) %>	 
-							<% } %>				   	
-						</select>  	
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Tabs - Default functionality</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script type="text/javascript" src="/js/Tramite/TramiteEditar.js"></script>
+</head>
+<body>
+ 
+	<div><input type="text" id="txtMunicipio" value="" hidden></div>
+	<div class="container">
+		<form class="form-horizontal">
+		<fieldset>
+		<legend>
+			<h3>Mantenimiento de Trámite</h3>	
+		</legend>
+		</fieldset>
+		</form>
+	</div>
+	<div class="container">	
+		<form class="form-horizontal">
+			<div id="tabsTramite">
+				<ul>
+					<li><a href="#tabgeneral">1. Información General</a></li>
+					<li><a href="#tabinformacion">2. Información Adicional</a></li>
+					<li><a href="#tab-requisitos">3. Requisitos</a></li>
+					<li><a href="#tab-derecho-pago">4. Derechos de Pago</a></li>
+					<li><a href="#tab-autoridades">5. Autoridades</a></li>
+				</ul>
+				<div id="tabgeneral">		
+					<br>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="modulo">MODULO</label>
+						<div class="col-sm-10">
+							<select id="listaModulos" class="form-control">
+								<option value="0">Elija módulo</option>	
+								<% if(modulos){ %>
+									<% modulos.forEach(function(modulo){ %>
+										<% if(modulo.habilitado){ %>
+											<% if(modulo.id==tramite.modulo){%>
+												<option value="<%=modulo.id %>" selected><%=modulo.area %></option>
+											<% } else {%>
+												<option value="<%=modulo.id %>"><%=modulo.area %></option>
+											<% } %>						
+										<% } %>		    		
+									<% }) %>	 
+								<% } %>				   	
+							</select>  	
+						</div>
+					</div>	
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="nombre">PROCEDIMIENTO</label>
+						<div class="col-sm-10"> 
+							<input type="text" name="nombre" id="txtNombre" class="form-control" value="<%=tramite.nombre%>">
+						</div>
 					</div>
-				</div>	
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="nombre">PROCEDIMIENTO</label>
-					<div class="col-sm-10"> 
-						<input type="text" name="nombre" id="txtNombre" class="form-control" value="<%=tramite.nombre%>">
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="areaTramite">AREA TRAMITE</label>
+						<div class="col-sm-10"> 
+							<input type="text" name="areaTramite" id="txtAreaTramite" class="form-control" value="<%=tramite.area_tramite%>">
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="areaTramite">AREA TRAMITE</label>
-					<div class="col-sm-10"> 
-						<input type="text" name="areaTramite" id="txtAreaTramite" class="form-control" value="<%=tramite.area_tramite%>">
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="atencion">PLAZO ATENCION</label>
+						<div class="col-sm-2"> 
+							<input type="number" name="atencion" id="txtAtencion" value="<%=tramite.atencion%>" class="form-control" min="0" >
+						</div>
+						<div class="alert alert-warning">
+							* Configure 0 para aprobación automática.
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="atencion">PLAZO ATENCION</label>
-					<div class="col-sm-2"> 
-						<input type="number" name="atencion" id="txtAtencion" value="<%=tramite.atencion%>" class="form-control" min="0" >
-					</div>
-					<div class="alert alert-warning">
-						* Configure 0 para aprobación automática.
-					</div>
-				</div>
-				<div class="form-group"> 
-					<div class="col-sm-offset-2 col-sm-10">
-						<div class="checkbox">
-							<label>
-								<% if(tramite.pago){%>
-									<input type="checkbox" name="pago" id="cbPago" checked>
-								<% } else {%>
-									<input type="checkbox" name="pago" id="cbPago">
-								<% } %>				
-								Derecho de Pago
-							</label>&nbsp
-							<label>
-								<% if(tramite.habilitado){%>
-									<input type="checkbox" name="pago" id="cbHabilitado" checked>
-								<% } else {%>
-									<input type="checkbox" name="habilitado" id="cbHabilitado">
-								<% } %>				
-								Habilitado
-							</label>			
+					<div class="form-group"> 
+						<div class="col-sm-offset-2 col-sm-10">
+							<div class="checkbox">
+								<label>
+									<% if(tramite.pago){%>
+										<input type="checkbox" name="pago" id="cbPago" checked>
+									<% } else {%>
+										<input type="checkbox" name="pago" id="cbPago">
+									<% } %>				
+									Derecho de Pago
+								</label>&nbsp
+								<label>
+									<% if(tramite.habilitado){%>
+										<input type="checkbox" name="pago" id="cbHabilitado" checked>
+									<% } else {%>
+										<input type="checkbox" name="habilitado" id="cbHabilitado">
+									<% } %>				
+									Habilitado
+								</label>			
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div id="tab-información">
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="comment">BASE LEGAL</label>
-					<div class="col-sm-10">
-						<textarea class="form-control" rows="5" id="txtBaseLegal" placeholder="Ingrese la base legal de Procedimiento."><%=tramite.base_legal%></textarea>
-					</div> 					
-		  		</div>
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="notasProcedimiento">NOTAS DEL PROCEDIMIENTO</label>
-					<div class="col-sm-10">
-						<textarea class="form-control" rows="5" id="txtNotasProcedimiento" name="notasProcedimiento" placeholder="Ingrese notas del Procedimiento."><%=tramite.notas_procedimiento%></textarea>
-					</div>  	  
+				<div id="tabinformacion">
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="comment">BASE LEGAL</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" rows="5" id="txtBaseLegal" placeholder="Ingrese la base legal de Procedimiento."><%=tramite.base_legal%></textarea>
+						</div> 					
+					  </div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="notasProcedimiento">NOTAS DEL PROCEDIMIENTO</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" rows="5" id="txtNotasProcedimiento" name="notasProcedimiento" placeholder="Ingrese notas del Procedimiento."><%=tramite.notas_procedimiento%></textarea>
+						</div>  	  
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="notasRequisitos">NOTAS DE LOS REQUISITOS</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" rows="5" id="txtNotasRequisitos" name="notasRequisitos" placeholder="Ingrese notas para requisitos."><%=tramite.notas_requisitos%>
+							</textarea>
+						</div>  	  
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="notasRequisitos">ARCHIVO ADJUNTO</label>
+						<div class="col-sm-10">
+							<form enctype="multipart/form-data" id="frmFoto">    
+							<input type="file" name="Adjunto" id="fAdjunto" class="file" data-show-upload="false">
+							<div id="errorBlock" class="help-block"></div>
+							</form>
+							<!--<% if(tramite.archivo_adjunto!=null){ %>
+								<a href="<%=tramite.archivo_adjunto%>" class="href"><i class="material-icons" style="font-size:36px;color:red">attachment</i></a>													
+							<% } %>-->
+											
+						</div>  	  
+					</div>
 				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="notasRequisitos">NOTAS DE LOS REQUISITOS</label>
-					<div class="col-sm-10">
-						<textarea class="form-control" rows="5" id="txtNotasRequisitos" name="notasRequisitos" placeholder="Ingrese notas para requisitos."><%=tramite.notas_requisitos%>
-						</textarea>
-					</div>  	  
+				<div id="tab-requisitos">
+					<div><button id="btnAgregarRequisito" class="btn btn-primary">Nuevo</button></div>
+					<br>
+					<table name="Requisitos" id="tRequisitos" class="table table-bordered">
+						<thead>
+							<th>SECUENCIA</th>
+							<th>NOMBRE</th>	
+							<th></th>		
+						</thead>
+						<tbody id="tbRequisitos">
+							<% requisitos.forEach(function(requisito){ %>
+							<tr id="trReq<%=requisito.id%>">							
+								<td>
+									<input type="number" id="numTramite" name="" min=1 max=100 value="<%= requisito.secuencia %>">
+								</td>
+								<td>
+									<div class="form-group">
+										<div class="col-sm-12">
+											<textarea class="form-control" rows="6" id="txtRequisito" placeholder="Ingrese la base legal de Procedimiento."><%=requisito.nombre%></textarea>
+										</div> 					
+									  </div>
+								</td>
+								<td>
+									<!--<button id="btnActRequisito<%=requisito.id%>" class="btn btn-info">Guardar</button>-->
+									<button id="btnDelRequisito<%=requisito.id%>" class="btn btn-danger">Eliminar</button>
+								</td>
+							</tr>
+							<% })%>						
+						</tbody>
+					</table>
 				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="notasRequisitos">ARCHIVO ADJUNTO</label>
-					<div class="col-sm-10">
-						<form enctype="multipart/form-data" id="frmFoto">    
-						<input type="file" name="Adjunto" id="fAdjunto" class="file" data-show-upload="false">
-						<div id="errorBlock" class="help-block"></div>
-						</form>
-						<!--<% if(tramite.archivo_adjunto!=null){ %>
-							<a href="<%=tramite.archivo_adjunto%>" class="href"><i class="material-icons" style="font-size:36px;color:red">attachment</i></a>													
-						<% } %>-->
-										
-					</div>  	  
+				<div id="tab-derecho-pago">
+					<div><button id="btnNDerechoPago" class="btn btn-primary">Nuevo</button></div>
+					<br>
+					<table name="Derechos" id="tDerechosPago" class="table table-bordered">
+						<thead>
+							<th>TRIBUTO</th>
+							<th>IMPORTE (S/.)</th>
+							<th></th>
+						</thead>
+						<tbody>
+							<% derechos.forEach(function(derechopago){ %>
+							<tr id="trDer<%=derechopago.id%>">					
+								<td>
+									<textarea id="txtTributo" rows="1" cols="110" placeholder="Ingrese detalle"><%= derechopago.tributo %></textarea>
+								</td>
+								<td>
+									<input type="text" id="txtImporte" value="<%= derechopago.importe %>">
+								</td>
+								<td>
+									<button id="btnDelDerecho<%=derechopago.id%>" class="btn btn-danger">Eliminar</button>
+								</td>
+							</tr>
+							<% })%>			
+						</tbody>
+					</table>
 				</div>
-				
-			</div>
-			<div id="tab-requisitos">
-				<div><button id="btnAgregarRequisito" class="btn btn-primary">Nuevo</button></div>
-				<br>
-				<table name="Requisitos" id="tRequisitos" class="table table-bordered">
-					<thead>
-						<th>SECUENCIA</th>
-						<th>NOMBRE</th>	
-						<th></th>		
-					</thead>
-					<tbody id="tbRequisitos">
-						<% requisitos.forEach(function(requisito){ %>
-						<tr id="trReq<%=requisito.id%>">							
-							<td>
-								<input type="number" id="numTramite" name="" min=1 max=100 value="<%= requisito.secuencia %>">
-							</td>
-							<td>
-								<div class="form-group">
-									<div class="col-sm-12">
-										<textarea class="form-control" rows="6" id="txtRequisito" placeholder="Ingrese la base legal de Procedimiento."><%=requisito.nombre%></textarea>
-									</div> 					
-		  						</div>
-							</td>
-							<td>
-								<!--<button id="btnActRequisito<%=requisito.id%>" class="btn btn-info">Guardar</button>-->
-								<button id="btnDelRequisito<%=requisito.id%>" class="btn btn-danger">Eliminar</button>
-							</td>
-						</tr>
-						<% })%>						
-					</tbody>
-				</table>
-			</div>
-			<div id="tab-derecho-pago">
-				<div><button id="btnNDerechoPago" class="btn btn-primary">Nuevo</button></div>
-				<br>
-				<table name="Derechos" id="tDerechosPago" class="table table-bordered">
-					<thead>
-						<th>TRIBUTO</th>
-						<th>IMPORTE (S/.)</th>
-						<th></th>
-					</thead>
-					<tbody>
-						<% derechos.forEach(function(derechopago){ %>
-						<tr id="trDer<%=derechopago.id%>">					
-							<td>
-								<textarea id="txtTributo" rows="1" cols="110" placeholder="Ingrese detalle"><%= derechopago.tributo %></textarea>
-							</td>
-							<td>
-								<input type="text" id="txtImporte" value="<%= derechopago.importe %>">
-							</td>
-							<td>
-								<button id="btnDelDerecho<%=derechopago.id%>" class="btn btn-danger">Eliminar</button>
-							</td>
-						</tr>
-						<% })%>			
-					</tbody>
-				</table>
-			</div>
-			<div id="tab-autoridades">
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="notasProcedimiento">AUTORIDAD COMPETENTE</label>
-					<div class="col-sm-10">
-						<textarea class="form-control" rows="5" id="txtAutoridadCompetente" name="autoridadCompetente" placeholder="Ingrese detalle."><%=tramite.autoridad_competente%></textarea>
-					</div>  	  
+				<div id="tab-autoridades">
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="notasProcedimiento">AUTORIDAD COMPETENTE</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" rows="5" id="txtAutoridadCompetente" name="autoridadCompetente" placeholder="Ingrese detalle."><%=tramite.autoridad_competente%></textarea>
+						</div>  	  
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="notasProcedimiento">INSTANCIA DE RESOLUCION RECONSIDERACION</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" rows="5" id="txtInstanciaReconsidera" name="instanciaReconsidera" placeholder="Ingrese detalle."><%=tramite.instancia_reconsideracion%></textarea>
+						</div>  	  
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="notasProcedimiento">Instancia de Resolución Apelación</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" rows="5" id="txtInstanciaApela" name="instanciaApela" placeholder="Ingrese detalle."><%=tramite.instancia_apelacion%></textarea>
+						</div>  	  
+					</div>							
 				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="notasProcedimiento">INSTANCIA DE RESOLUCION RECONSIDERACION</label>
-					<div class="col-sm-10">
-						<textarea class="form-control" rows="5" id="txtInstanciaReconsidera" name="instanciaReconsidera" placeholder="Ingrese detalle."><%=tramite.instancia_reconsideracion%></textarea>
-					</div>  	  
-				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="notasProcedimiento">Instancia de Resolución Apelación</label>
-					<div class="col-sm-10">
-						<textarea class="form-control" rows="5" id="txtInstanciaApela" name="instanciaApela" placeholder="Ingrese detalle."><%=tramite.instancia_apelacion%></textarea>
-					</div>  	  
-				</div>							
 			</div>
-		</div>
-	</form>
-	<br>
-<button id="btnActualTramite<%=tramite.id%>" class="btn btn-success">Guardar</button>
-<button id="btnElimTramite<%=tramite.id%>" class="btn btn-danger">Eliminar</button>
-</div>
-<script>
-	 let archivo_adjunto='<%=tramite.archivo_adjunto%>';
-	 let nombre_archivo='<%=tramite.nombre_archivo%>';	
-	 var patron=/(.pdf)/;
-	
-	 if(archivo_adjunto!='null' && archivo_adjunto!='null'){
-		  if(patron.test(nombre_archivo)){
-			$("#fAdjunto").fileinput({showUpload: false,maxFileCount: 1,initialPreviewAsData: true,
-				initialPreview: [archivo_adjunto],
-				initialPreviewConfig: [{caption:nombre_archivo, width: "120px", showDelete: false,type:'pdf'}]
-    		});
-	 	  }else{
-			$("#fAdjunto").fileinput({showUpload: false,maxFileCount: 1,initialPreviewAsData: true,
-				initialPreview: [archivo_adjunto],
-				initialPreviewConfig: [{caption:nombre_archivo, width: "120px", showDelete: false}]
-    		});
-		  }		
-	   }
-</script>
-<!-- </form> -->
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript" src="/js/Tramite/TramiteEditar.js"></script>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<style>
-	.ui-tabs .ui-tabs-nav
-{
-background:black;
-}
-
-</style>
+		</form>
+		<br>
+	<button id="btnActualTramite<%=tramite.id%>" class="btn btn-success">Guardar</button>
+	<button id="btnElimTramite<%=tramite.id%>" class="btn btn-danger">Eliminar</button>
+	</div>
+ 
+ 
+</body>
+</html>
