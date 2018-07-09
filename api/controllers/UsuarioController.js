@@ -5,13 +5,24 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 let bcrypt = require('bcrypt');
+let passport = require('passport');
 
 module.exports = {
 	
-	fnIngresar:async(req,res)=>{
+	fnIngresar:async(req,res,next)=>{
 
+		passport.authenticate('local', function(err, user, info){
+			if (err) { return next(err); }
+			if (!user) { return res.redirect('/'); }
+			req.logIn(user, function(err) {
+			  if (err) { return next(err); }
+
+			  return res.redirect('/General/' + user.municipio);
+			});
+		})(req, res,next);
+
+		/*
 		let rutaInicio='/';
-
 		try {
 			let usuario=await Usuario.findOne({usuario:req.body.usuario}).populate('municipio');
 
@@ -32,7 +43,8 @@ module.exports = {
 			res.redirect(rutaInicio);
 		} catch (error) {
 			res.redirect(rutaInicio);
-		}
+		}   
+		*/
 	},
 
 	fnSalir:(req,res)=>{

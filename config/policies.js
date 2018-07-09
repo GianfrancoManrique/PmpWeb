@@ -26,7 +26,15 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
 
-  // '*': true,
+  //'*': true,
+  
+  MunicipioController:{
+    "*":false,
+    fnIndex:true,
+    fnListar:"isAuthenticated",
+    fnConsultarMun:"isAuthenticated"
+  }
+
 
   /***************************************************************************
   *                                                                          *

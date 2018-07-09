@@ -21,8 +21,7 @@ module.exports = {
 				if(error){ res.negotiate(error)}
 
 				let noticias=resultado?resultado.rows:null;
-				console.log(municipios);console.log(noticias);
-
+				/*console.log(municipios);console.log(noticias);*/
 				res.view('Portal/Index',{municipios:municipios,noticias:noticias})
 
 			});		
@@ -162,17 +161,21 @@ module.exports = {
 fnConsultarMun:async(req,res)=>{
 
 	try {
-		let municipio=await Municipio.findOne({id:req.params.id})
-		let tipos=await TipoTelefono.find({select:['id','nombre']}).where({habilitado:true})
 		let telefonos=null;
-		let comando='SELECT ID,NUMERO,TIPO FROM public.sp_consultartelxmunicipio ('+req.params.id+')';
-		Telefono.query(comando,function(error,resultado){	
-			console.log(municipio);
-			if(resultado){
-				telefonos=resultado.rows;
-			}
-			res.view('Municipios/MunicipioEditar',{layout:'../views/Layouts/Layout-4',mi_municipio:municipio,municipio:municipio.id,telefonos:telefonos,tipos:tipos});		
-		})
+		let tipos=await TipoTelefono.find({select:['id','nombre']}).where({habilitado:true})
+		let municipio=await Municipio.findOne({id:req.params.id})
+		if(municipio){
+			let comando='SELECT ID,NUMERO,TIPO FROM public.sp_consultartelxmunicipio ('+req.params.id+')';
+			Telefono.query(comando,function(error,resultado){	
+				console.log(municipio);
+				if(resultado){
+					telefonos=resultado.rows;
+				}
+				res.view('Municipios/MunicipioEditar',{layout:'../views/Layouts/Layout-4',mi_municipio:municipio,municipio:municipio.id,telefonos:telefonos,tipos:tipos});		
+			})
+		}else{
+			return res.redirect('/');
+		}
 	} catch (error) {
 		console.log(error);
 	}
