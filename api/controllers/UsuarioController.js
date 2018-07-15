@@ -9,17 +9,18 @@ let passport = require('passport');
 
 module.exports = {
 	
-	fnIngresar:async(req,res,next)=>{
-
+	fnIngresar:(req,res)=>{
+	
 		passport.authenticate('local', function(err, user, info){
-			if (err) { return next(err); }
-			if (!user) { return res.redirect('/'); }
-			req.logIn(user, function(err) {
-			  if (err) { return next(err); }
-
+			if((err) || (!user)) {
+				return res.redirect('/'); 
+			}
+	 	    req.logIn(user, function(err) {
+			  if(err) return res.redirect('/');
+			  if(user.tipo=="SA") return res.redirect('/Municipio/Listar');
 			  return res.redirect('/General/' + user.municipio);
 			});
-		})(req, res,next);
+		  })(req, res);
 
 		/*
 		let rutaInicio='/';
@@ -48,7 +49,7 @@ module.exports = {
 	},
 
 	fnSalir:(req,res)=>{
-		req.session.destroy();
+		req.logout();
 		res.redirect('/');
 	},
 	
@@ -77,7 +78,7 @@ module.exports = {
 				let contrasena=await UsuarioDB.fnGenerarContraseña();
 				let contrasenaEnc=await bcrypt.hash(contrasena,10);
 				let usuarioA=await Usuario.update({id:usuarioN.id},{usuario:usuario,contrasena:contrasenaEnc});
-				//let resultado=await Correo.fnEnviarCorreo({destinatario:usuarioN.correo,nombres:usuarioN.nombres,apellidos:usuarioN.apellidos});
+				let resultado=await Correo.fnEnviarCorreo({destinatario:usuarioN.correo,nombres:usuarioN.nombres,apellidos:usuarioN.apellidos});
 				if(usuarioA){
 					let resultado=await Correo.fnEnviarCorreo(usuarioN.correo,usuarioN.nombres,
 						usuarioN.apellidos,usuario,contrasena);

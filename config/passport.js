@@ -1,4 +1,5 @@
 //Passport Local
+let bcrypt = require('bcrypt');
 let passport = require("passport");
 let passportLocal = require("passport-local").Strategy;
 
@@ -8,7 +9,11 @@ let passportLocal = require("passport-local").Strategy;
   });
    
    passport.deserializeUser(function(usuario, done) {
-     done(null, usuario);
+
+     Usuario.find({id:usuario.id}).populate('municipio').exec(function(err,usuario){
+      done(err, usuario);
+     });
+     
    });
 
    passport.use(new passportLocal(
@@ -27,16 +32,22 @@ let passportLocal = require("passport-local").Strategy;
         };
   
         if(datos.length>0) {
-          console.log(datos[0]);
-          let bcrypt = require('bcrypt');
-          bcrypt.compare(contrasena,datos[0].contrasena,(err,res)=>{
+          console.log(datos[0].contrasena);
+          bcrypt.compare(contrasena, datos[0].contrasena).then(function(res) {
             if (res){
-                return done(null, datos[0]);
+              return done(null, datos[0]);
             }else{
                 return done(false, null)
             }
           });
-
+          /*
+          let logeado=await bcrypt.compareSync(contrasena,datos[0].contrasena);
+            if (logeado){
+                return done(null, datos[0]);
+            }else{
+                return done(false, null)
+            }
+          */
         } else {
           return done(false, null);
         }

@@ -164,6 +164,7 @@ fnConsultarMun:async(req,res)=>{
 		let telefonos=null;
 		let tipos=await TipoTelefono.find({select:['id','nombre']}).where({habilitado:true})
 		let municipio=await Municipio.findOne({id:req.params.id})
+		req.session.distrito = municipio.distrito;
 		if(municipio){
 			let comando='SELECT ID,NUMERO,TIPO FROM public.sp_consultartelxmunicipio ('+req.params.id+')';
 			Telefono.query(comando,function(error,resultado){	
