@@ -17,7 +17,10 @@ module.exports = {
   			autoIncrement: true,
   			unique: true        
 		},
-    numdoc:"integer",
+    numdoc:{
+      type:"string",
+      size:"20"
+    },
     nombres:{
       type:"string",
       size:"100"

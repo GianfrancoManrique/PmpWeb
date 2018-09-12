@@ -74,9 +74,9 @@ module.exports = {
 			res.view("Municipios/MunicipioListar",
 			{layout:"../views/Layouts/Layout-1",
 			 municipios:municipios,
-			 departamentos:departamentos,		
-			 provincias:provincias,
-			 distritos:distritos	 
+			 departamentos:departamentos.sort(),		
+			 provincias:provincias.sort(),
+			 distritos:distritos.sort()	 
 			});
 
 		  })
