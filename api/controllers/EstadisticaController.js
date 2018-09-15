@@ -13,7 +13,6 @@ module.exports = {
             comando=comando.concat(req.params.municipio,',',año,')');
             Visita.query(comando,function(error,resultado){ 	
                 let data=resultado?resultado.rows:[];
-                console.log(data);
  				res.view('Estadisticas/Estadistica',{layout:'../views/Layouts/Layout-4',municipio:req.params.municipio,data:data,año:año});
  		 	})           
         } catch (error) {

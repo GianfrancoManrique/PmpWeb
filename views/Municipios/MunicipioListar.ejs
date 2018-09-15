@@ -10,7 +10,7 @@
 			<div class="content-page">
 				<div class="content">
 					<div class="container">
-						<legend>Municipios del Perú</legend>
+						<legend>Búsqueda por Ubigeo</legend>
 						<div class="row">
 							<div class="col-lg-6">
 								<div class="card-box">
@@ -38,8 +38,9 @@
 							</div>
 						</div>
 						<br>
-						<legend>Municipios configurados</legend>
+						<legend>Resultados de Búsqueda</legend>
 						<div class="row">
+
 							<div class="table-responsive">
 
 								<table class="table" id="tMunicipalidades">
@@ -47,9 +48,7 @@
 									<thead class="thead-inverse">
 										<tr>
 											<th>#</th>
-											<th>DEPARTAMENTO</th>
-											<th>PROVINCIA</th>
-											<th>DISTRITO</th>
+											<th>MUNICIPIO</th>
 											<th>HABILITADO</th>
 										</tr>
 									</thead>
@@ -59,15 +58,11 @@
 										<% for(var i=0; i<municipios.length; i++){ %>
 											<tr>
 												<td>
-													<a href="#" id="btnMun<%=municipios[i].id%>">MUN-<%=municipios[i].id%></a>
+													<a href="#" id="btnMun<%=municipios[i].id%>">#IDMUN<%=municipios[i].id%></a>
 												</td>
-												<td>
-													<%= municipios[i].departamento %>
-												</td>
-												<td>
-													<%= municipios[i].provincia %>
-												</td>
-												<td>
+												<td> MUNICIPIO DE 
+													<%= municipios[i].departamento %> -
+													<%= municipios[i].provincia %> -
 													<%= municipios[i].distrito %>
 												</td>
 												<td>
@@ -86,8 +81,8 @@
 							</div>
 						</div>
 						<br>
-						<legend>MUNICIPIO&nbsp
-							<button type="submit" id="btnNuevoMunicipio" class="btn btn-default">NUEVO</button>
+						<legend>Registra un municipio&nbsp
+							<button type="submit" id="btnNuevoMunicipio" class="btn btn-success">Nuevo</button>
 						</legend>
 						<div class="row">
 							<div class="col-lg-6">
@@ -139,7 +134,7 @@
 							</div>
 						</div>
 						<br>
-						<legend>ADMINISTRADORES&nbsp
+						<legend>Registrar Administradores&nbsp
 							<button type="submit" id="btnNuevoAdmin" class="btn btn-default">NUEVO</button>
 						</legend>
 						<div class="row">

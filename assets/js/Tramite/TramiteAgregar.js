@@ -1,7 +1,7 @@
 
 $(document).ready(function(){
 
-   $( '#tabsTramite' ).tabs();
+   $("#tabsTramite").tabs();
    /*Configuracion de tabs
    $( '#tabsTramite' ).tabs( 'disable', '#tab-información' )
    $( '#tabsTramite' ).tabs( 'disable', '#tab-requisitos' )

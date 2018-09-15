@@ -4,7 +4,8 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 		$( function() {
-		  $( "#accordion" ).accordion({collapsible: true});
+		  //$( "#accordion" ).accordion({collapsible: false});
+		  $( "#accordion" ).accordion({ heightStyle: "content"});
 		} );
 </script>
 <div class="container">
@@ -36,13 +37,13 @@
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="comment">LEMA</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" name="lema" id="txtLema" value="<%= mi_municipio.lema %> " placeholder="¿Cómo se le conoce al municipio?">			
+					<input type="text" class="form-control" name="lema" id="txtLema" value="<%= mi_municipio.lema %>" text="Ingresa el lema del Municipio">		
 				</div>  	  
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="comment">MISION:</label>
 				<div class="col-sm-10">
-					<textarea class="form-control" rows="5" id="txtMision" placeholder="Ingrese la misión del municipio."><%= mi_municipio.mision %> </textarea>
+					<textarea class="form-control" rows="5" id="txtMision" placeholder="Ingrese la misión del municipio."><%= mi_municipio.mision %></textarea>
 				</div>  	  
 			</div>
 			<div class="form-group">
@@ -108,25 +109,32 @@
 		<h3>Cuentas sociales</h3>
 		<div>
 			<div class="form-group">
-					<label class="control-label col-sm-2" for="correo">FACEBOOK:</label>
+					<label class="control-label col-sm-2" for="facebook">FACEBOOK:</label>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" name="correo" id="txtFacebook" value="<%= mi_municipio.urlFacebook %>" placeholder="Ingrese la cuenta de Facebook.">
+						<input type="text" class="form-control" name="facebook" id="txtFacebook" value="<%= mi_municipio.urlFacebook %>" placeholder="Ingrese la cuenta de Facebook.">
 					</div>
 			
-					<label class="control-label col-sm-2" for="facebook">TWITTER:</label>
+					<label class="control-label col-sm-2" for="twitter">TWITTER:</label>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" name="facebook" id="txtTwitter" value="<%= mi_municipio.urlTwitter %>" placeholder="Ingrese la cuenta de Twitter.">
+						<input type="text" class="form-control" name="twitter" id="txtTwitter" value="<%= mi_municipio.urlTwitter %>" placeholder="Ingrese la cuenta de Twitter.">
 					</div>		    
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="correo">YOUTUBE:</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control" name="youtube" id="txtYoutube" value="<%= mi_municipio.urlYoutube %> " placeholder="Ingrese la cuenta de Youtube.">
-				</div>
-		
-				<label class="control-label col-sm-2" for="facebook">CORREO:</label>
-				<div class="col-sm-4">
-					<input type="text" class="form-control"  name="correo" id="txtCorreo" value="<%= mi_municipio.correo %> " placeholder="Ingrese la cuenta de correo">
+					<label class="control-label col-sm-2" for="youtube">YOUTUBE:</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" name="youtube" id="txtYoutube" value="<%= mi_municipio.urlYoutube %>" placeholder="Ingrese la cuenta de Youtube.">
+					</div>
+
+					<label class="control-label col-sm-2" for="correo">CORREO:</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control"  name="correo" id="txtCorreo" value="<%= mi_municipio.correo %>" placeholder="Ingrese la cuenta de correo.">
+					</div>
+			</div>
+			<div class="form-group">
+					<label class="control-label col-sm-2" for="comment"></label>
+					<div class="col-sm-10">
+						<button id="btnGuardarRedes">Guardar</button>
+					</div>  	  
 			</div>
 		</div>
 		

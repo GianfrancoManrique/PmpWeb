@@ -6,6 +6,7 @@ $(document).ready(function(){
 	$('#btnAgregarTel').on('click',fnAgregarTelefono);
 
 	$('#btnGuardarMunicipio').on('click',fnGuardarMunicipio);
+	$('#btnGuardarRedes').on('click',fnGuardarMunicipio);
 
 	$('a[id^="lnkTel"').on('click',fnEliminarTelefono);
 

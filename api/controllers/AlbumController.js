@@ -46,7 +46,7 @@ module.exports = {
             album.fotos.forEach((foto)=>{
                  fotos.push(foto.url);
             })            
-            res.view('Fotos/AlbumEditar',{layout:'../views/Layouts/Layout-4',municipio:4,album:album,fotos:fotos});			
+            res.view('Fotos/AlbumEditar',{layout:'../views/Layouts/Layout-4',municipio:album.fotos[0].municipio,album:album,fotos:fotos});			
         })
         .catch(function(error){			
             res.negotiate(error);		
@@ -59,15 +59,23 @@ module.exports = {
             req.file('fotos').upload(async (err, uploadedFiles)=> {
             var fotos = [];
             //Creacion de album
-            let titulo=req.body.tipo=='album'?req.body.descripcion:'sin titulo';
+            let titulo="SIN TITULO";
+            if(req.body.tipo==="album"){
+                titulo=req.body.descripcion;
+            }
+            
             let albumReg=await Album.create({titulo:titulo,habilitado:true});
             //Creacion de fotos
-            let descripcion=req.body.tipo=='album'?'':req.body.descripcion;
+            let descripcion='';
+            if(req.body.tipo==="album"){
+                descripcion=req.body.tipo;
+            }
             let municipio=req.body.municipio;
             async.each(uploadedFiles,
                 (uploadedFile, callback) =>{
-                    //console.log(uploadedFile);         
-                    S3UploadService.upload_file(uploadedFile.fd,uploadedFile.filename,(error, fileS3)=> {
+                    //console.log(uploadedFile);       
+                    let ext=uploadedFile.filename.split('.').pop();
+                    S3UploadService.upload_file(uploadedFile.fd,Date.now().toString()+"."+ext,(error, fileS3)=> {
                         fotos.push(fileS3);
                         //Foto.create({descripcion:descripcion,municipio:req.body.municipio,
                         //url:fileS3.Location,album:albumReg.id}).exec();
@@ -100,7 +108,6 @@ module.exports = {
                     res.redirect('/Foto/Listar/'+req.body.municipio);    
                 }else{
                     async.each(uploadedFiles,(uploadedFile, callback) =>{     
-                        console.log(uploadedFile); 
                         S3UploadService.upload_file(uploadedFile.fd,uploadedFile.filename,(error, fileS3)=> {
                             fotos.push(fileS3);
                             callback(error, fileS3);

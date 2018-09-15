@@ -4,16 +4,16 @@
 		 <div class="content-page">
 			<div class="content">
 				<div class="container">
-					<legend>Mantenimiento de Alcalde</legend>
+					<legend>Datos del Alcalde</legend>
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="card-box">
 								<% if(alcalde) { %>
 									<input type="text" id="txtIdMunicipio" value="<%=alcalde.municipio %>" hidden>
 									<input type="text" name="idAlcalde" id="txtIdAlcalde" value="<%=alcalde.id %>" hidden>
-									<h5><b>NOMBRES</b></h5>
+									<h5><b>INGRESE NOMBRES</b></h5>
 									<input type="text" class="form-control" name="nomAlcalde" id="txtNomAlcalde" value="<%=alcalde.nombres %>">
-									<h5><b>APELLIDOS</b></h5>
+									<h5><b>INGRESE APELLIDOS</b></h5>
 									<input type="text" class="form-control" name="apellAlcalde" id="txtApellAlcalde" value="<%=alcalde.apellidos %>">
 									<br>
 									<input type="hidden" class="form-control" id="hFotoAlcalde" value="<%=alcalde.foto %>"> 
@@ -26,8 +26,8 @@
 						</div>
 						<div class="col-lg-6">
 							<div class="card-box">
-								<h5><b>RESEÑA</b></h5>
-								<textarea class="form-control" rows="21" id="txtResena" placeholder="Ingrese reseña del alcalde."><%= alcalde.resena %></textarea>
+								<h5><b>INGRESE LA RESEÑA</b></h5>
+								<textarea class="form-control" rows="20" id="txtResena" placeholder="Ingrese reseña del alcalde."><%= alcalde.resena %></textarea>
 								<button id="btnGuardarAlcalde" class="btn btn-success">Guardar</button>
 								<button id="btnEliminarAlcalde" class="btn btn-danger">Eliminar</button>
 							</div>

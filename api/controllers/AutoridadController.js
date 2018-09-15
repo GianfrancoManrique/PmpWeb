@@ -24,7 +24,7 @@ module.exports = {
 
 		Autoridad.find({municipio:municipio,tipo:'R'}).exec(function(error,resultado){
 			if(error) res.negotiate(error);
-			console.log(resultado);
+			//console.log(resultado);
 			res.view('Autoridades/RegidorListar',{layout:'../views/Layouts/Layout-4',regidores:resultado,municipio:municipio});
 		})
 	},
@@ -86,7 +86,6 @@ module.exports = {
 		}
 
 		Autoridad.update(filtro,campos).exec(function(error,alcalde){
-			console.log(alcalde);
 			if(error) res.negotiate(error);
 			res.send(alcalde);
 		})
@@ -110,7 +109,6 @@ module.exports = {
 
 				Autoridad.update(filtro,{foto:archivo[0].extra.Location})
 				.then(function(alcalde){
-					console.log(alcalde);
 					res.send(alcalde);
 				})
 				.catch(function(error){
@@ -129,7 +127,6 @@ module.exports = {
 		var filtro={municipio:req.body.municipio}
 		Autoridad.destroy(filtro).exec(function(error,alcalde){
 			if(error) return res.negotiate(error);	
-			console.log(alcalde);
 			res.send(alcalde);
 		})
 	},
@@ -177,7 +174,6 @@ module.exports = {
 		}
 
 		Autoridad.update(filtro,campos).exec(function(error,regidor){
-			console.log(regidor);
 			if(error) res.negotiate(error);
 			res.send(regidor);
 		})
@@ -220,7 +216,6 @@ module.exports = {
 		var filtro={id:req.params.id}
 		Autoridad.destroy(filtro).exec(function(error,regidor){
 			if(error) return res.negotiate(error);	
-			console.log(regidor);
 			res.send(regidor);
 		})
 	},

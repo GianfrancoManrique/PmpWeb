@@ -36,14 +36,17 @@ function fnFiltrar(e){
 	  		var tdId=document.createElement("td");
 	  		var a=document.createElement("a")
 	  		a.id="lnkMun"+data.municipios[i].id;
-	  		a.innerHTML='MUN-'+data.municipios[i].id;			  
+	  		a.innerHTML='#IDMUN'+data.municipios[i].id;			  
 	  		a.addEventListener("click",fnEditarMunicipio,false);
 	  		var tdDpto=document.createElement("td")
-	  		tdDpto.innerHTML=data.municipios[i].departamento;
+			  tdDpto.innerHTML="MUNICIPIO DE "+data.municipios[i].departamento+"-"+
+			  data.municipios[i].provincia+"-"+data.municipios[i].distrito;
+			  /*
 	  		var tdProv=document.createElement("td")
 	  		tdProv.innerHTML=data.municipios[i].provincia;
 	  		var tdDsto=document.createElement("td")
-	  		tdDsto.innerHTML=data.municipios[i].distrito;
+			  tdDsto.innerHTML=data.municipios[i].distrito;
+			  */
 			var tdHabil=document.createElement("td")
 			var input=document.createElement("input");
 			input.type='checkbox';
@@ -54,11 +57,12 @@ function fnFiltrar(e){
 			tdHabil.appendChild(input);
 	  		tr.appendChild(tdId);
 	  		tr.appendChild(tdDpto);
-	  		tr.appendChild(tdProv);
-	  		tr.appendChild(tdDsto);
+	  		//tr.appendChild(tdProv);
+	  		//tr.appendChild(tdDsto);
 			tr.appendChild(tdHabil);
 	  		$("#tbMunicipios").append(tr);
-	  	}		
+		  }		
+		$("lblNumRes").text(data.municipios.length);
 	})
 }
 
@@ -218,7 +222,7 @@ function fnMostrarAdministradores(id){
 					var td1=document.createElement("td");
 					var a=document.createElement("a");
 					a.id="lnkA"+data.usuarios[i].id;
-					a.innerHTML='ADMIN-'+data.usuarios[i].id;
+					a.innerHTML='#IDADMIN'+data.usuarios[i].id;
 					a.href="/Usuario/Editar/"+data.usuarios[i].id;
 
 					td1.append(a);

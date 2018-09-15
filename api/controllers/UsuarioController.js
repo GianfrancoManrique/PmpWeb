@@ -13,8 +13,7 @@ module.exports = {
 	
 		passport.authenticate('local', function(err, user, info){
 			if((err) || (!user)) {
-				//return res.redirect('/'); 
-				return res.redirect('/Municipio/Listar');
+				return res.redirect('/'); 
 			}
 	 	    req.logIn(user, function(err) {
 			  if(err) return res.redirect('/');
