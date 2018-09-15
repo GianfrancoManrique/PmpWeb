@@ -31,6 +31,7 @@ module.exports.policies = {
   MunicipioController:{
     "*":"isAuthenticated",
     fnIndex:true,
+    fnPerfil:true
     /*
     fnIndex:true,
     fnListar:"isAuthenticated",
