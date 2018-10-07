@@ -9,7 +9,7 @@ let Correo ={
                     host: 'smtp.gmail.com',
                     port: 465,
                     secure: true, // use SSL
-                    auth: {user: 'gmanrique.422@gmail.com',pass: '12345abcD@@'}
+                    auth: {user: 'gmanrique.422@gmail.com',pass: 'uiop1357'}
                 }
             );
             let mailOptions = {
