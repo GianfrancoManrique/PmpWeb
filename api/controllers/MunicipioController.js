@@ -21,7 +21,6 @@ module.exports = {
 				if(error){ res.negotiate(error)}
 
 				let noticias=resultado?resultado.rows:null;
-				/*console.log(municipios);console.log(noticias);*/
 				res.view('Portal/Index',{municipios:municipios,noticias:noticias})
 
 			});		
@@ -47,7 +46,6 @@ module.exports = {
 			let alcalde=await AutoridadDB.fnConsultarAlcalde(municipio.id);
 			let regidores=await AutoridadDB.fnConsultarRegidores(municipio.id);
 			await MunicipioDB.fnActualizaBusquedas(req.params.id);
-			console.log(municipio);console.log(alcalde);console.log(regidores);
 			res.view('Portal/Perfil',{municipio:municipio,alcalde:alcalde,regidores:regidores});
 		} catch (error) {
 			console.log(error);
@@ -164,11 +162,16 @@ fnConsultarMun:async(req,res)=>{
 		let telefonos=null;
 		let tipos=await TipoTelefono.find({select:['id','nombre']}).where({habilitado:true})
 		let municipio=await Municipio.findOne({id:req.params.id})
-		req.session.distrito = municipio.distrito;
+		
 		if(municipio){
+			let usuario=await Usuario.findOne({municipio:municipio.id});
+			//Parametros de sesion
+			req.session.distrito = municipio.distrito;
+			req.session.usuario=usuario.nombres;
+
 			let comando='SELECT ID,NUMERO,TIPO FROM public.sp_consultartelxmunicipio ('+req.params.id+')';
 			Telefono.query(comando,function(error,resultado){	
-				console.log(municipio);
+		
 				if(resultado){
 					telefonos=resultado.rows;
 				}

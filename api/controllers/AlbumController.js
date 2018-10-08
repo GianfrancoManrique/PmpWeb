@@ -41,8 +41,7 @@ module.exports = {
         .findOne({select:['id','titulo']})
         .populate('fotos')
         .where({id:id})					  
-        .then(function(album){	
-            console.log(album);			
+        .then(function(album){		
             album.fotos.forEach((foto)=>{
                  fotos.push(foto.url);
             })            

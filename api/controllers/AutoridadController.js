@@ -24,7 +24,6 @@ module.exports = {
 
 		Autoridad.find({municipio:municipio,tipo:'R'}).exec(function(error,resultado){
 			if(error) res.negotiate(error);
-			//console.log(resultado);
 			res.view('Autoridades/RegidorListar',{layout:'../views/Layouts/Layout-4',regidores:resultado,municipio:municipio});
 		})
 	},
@@ -134,36 +133,48 @@ module.exports = {
 		var municipio=req.params.municipio;
 		res.view('Autoridades/RegidorAgregar',{layout:'../views/Layouts/Layout-4',municipio:municipio});
 	},
-	fnRegistrarRegidor:(req,res)=>{
-		
-		var regidor={nombres:req.body.nombres,apellidos:req.body.apellidos,
-			tipo:'R',municipio:req.body.municipio,habilitado:req.body.habilitado=='on'?1:0			
-		}
-		Autoridad.create(regidor)
-		.then(function whenDone(regidor){
-				req.file('fotoRegidor').upload({
-				adapter:require('skipper-s3'),
-				bucket:'fotosmunicipios',
-				key:'AKIAIP7R7UMNBUU57EKA',
-				secret:'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'
-			},function whenDone(error,archivo){
+	fnRegistrarRegidor:async (req,res)=>{
 
-				if(error) return res.negotiate(error);	
+		try {
 
-				Autoridad.update({id:regidor.id},{foto:archivo[0].extra.Location})
-				.then(function(regidor){
-					console.log(regidor);
-					res.redirect('/Regidor/Listar/'+req.body.municipio);
+			let regidor={nombres:req.body.nombres,
+						apellidos:req.body.apellidos,
+						tipo:'R',
+						municipio:req.body.municipio,
+						habilitado:req.body.habilitado=='on'?1:0}
+
+			if(req.file('fotoRegidor')._readableState.length==0){
+				let autoridad=await Autoridad.create(regidor);
+				res.redirect('/Regidor/Listar/'+req.body.municipio);
+			}else{
+				Autoridad.create(regidor)
+				.then(function whenDone(regidor){
+					req.file('fotoRegidor').upload({
+					adapter:require('skipper-s3'),
+					bucket:'fotosmunicipios',
+					key:'AKIAIP7R7UMNBUU57EKA',
+					secret:'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'
+				},function whenDone(error,archivo){
+	
+					if(error) return res.negotiate(error);	
+	
+					Autoridad.update({id:regidor.id},{foto:archivo[0].extra.Location})
+					.then(function(regidor){
+						res.redirect('/Regidor/Listar/'+req.body.municipio);
+					})
+					.catch(function(error){
+						 res.negotiate(error);
+					})
+				});
 				})
 				.catch(function(error){
- 					res.negotiate(error);
+					res.negotiate(error);
 				})
-			});
-
-		})
-		.catch(function(error){
- 			res.negotiate(error);
-		})
+			}
+		} catch (error) {
+			res.negotiate(error);
+		}
+		
 	},
 
 	fnActualizarRegidor1:(req,res)=>{
@@ -197,7 +208,6 @@ module.exports = {
 
 				Autoridad.update(filtro,{foto:archivo[0].extra.Location})
 				.then(function(regidor){
-					console.log(regidor);
 					res.send(regidor);
 				})
 				.catch(function(error){

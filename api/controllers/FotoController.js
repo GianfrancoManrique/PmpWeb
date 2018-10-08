@@ -40,16 +40,6 @@ module.exports = {
 		 	Body:"Hola mundo"
 		};
 
-		/*
-		s3.putObject(params,function(error,data2){
-			if(error){
-				console.log(error)
-			}else{
-				console.log(data2);
-			}
-		});		
-		*/
-
 		var params2={
 			Bucket: "fotosmunicipios",
 			Prefix: 'mimunicipio/',

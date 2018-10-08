@@ -113,8 +113,6 @@ module.exports = {
 			apellidos:req.body.apellidos,correo:req.body.correo,cargo:req.body.cargo,
 			resolucion:req.body.resolucion,fecresolucion:req.body.fecresolucion,
 			habilitado:req.body.habilitado=='on'?true:false};
-
-		console.log(campos);
 		
 		Usuario.update(filtro,campos).exec(function(error,usuario){
 			if(error) res.negotiate(error)

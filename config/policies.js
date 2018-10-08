@@ -37,7 +37,23 @@ module.exports.policies = {
     fnListar:"isAuthenticated",
     fnConsultarMun:"isAuthenticated",
     */
-  }
+  },
+  AutoridadController:{
+    "*":"isAuthenticated",
+  },
+  EstadisticaController:{
+    "*":"isAuthenticated",
+  },
+  FotoController:{
+    "*":"isAuthenticated",
+  },
+  ModuloController:{
+    "*":"isAuthenticated",
+  },
+  NoticiaController:{
+    "*":"isAuthenticated",
+  },
+
 
 
   /***************************************************************************
