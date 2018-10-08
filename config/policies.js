@@ -38,6 +38,9 @@ module.exports.policies = {
     fnConsultarMun:"isAuthenticated",
     */
   },
+  AlbumController:{
+    "*":"isAuthenticated",
+  },
   AutoridadController:{
     "*":"isAuthenticated",
   },
@@ -53,8 +56,12 @@ module.exports.policies = {
   NoticiaController:{
     "*":"isAuthenticated",
   },
-
-
+  TramiteController:{
+    "*":"isAuthenticated",
+  },
+  UsuarioController:{
+    "*":"isAuthenticated",
+  }
 
   /***************************************************************************
   *                                                                          *
