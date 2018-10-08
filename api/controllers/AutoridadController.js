@@ -137,13 +137,13 @@ module.exports = {
 
 		try {
 
-			let regidor={nombres:req.body.nombres,
+			let _regidor={nombres:req.body.nombres,
 						apellidos:req.body.apellidos,
 						tipo:'R',
 						municipio:req.body.municipio,
 						habilitado:req.body.habilitado=='on'?1:0}
 
-			Autoridad.create(regidor)
+			Autoridad.create(_regidor)
 			.then(function whenDone(regidor){
 				req.file('fotoRegidor').upload({
 				adapter:require('skipper-s3'),
@@ -156,7 +156,7 @@ module.exports = {
 
 				Autoridad.update({id:regidor.id},{foto:archivo[0].extra.Location})
 				.then(function(regidor){
-					res.redirect('/Regidor/Listar/'+regidor.municipio);
+					res.redirect('/Regidor/Listar/'+_regidor.municipio);
 				})
 				.catch(function(error){
 						res.negotiate(error);
