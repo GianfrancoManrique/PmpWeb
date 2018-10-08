@@ -21,31 +21,6 @@ module.exports = {
 			  return res.redirect('/General/' + user.municipio);
 			});
 		  })(req, res);
-
-		/*
-		let rutaInicio='/';
-		try {
-			let usuario=await Usuario.findOne({usuario:req.body.usuario}).populate('municipio');
-
-			if(usuario==null) res.redirect(rutaInicio);
-			let logeado=await bcrypt.compare(req.body.contrasena,usuario.contrasena);
-
-			if(logeado||usuario.tipo=='SA'){
-				let nombres=usuario.nombres?usuario.nombres.toUpperCase():'';
-				let apellidos=usuario.apellidos?usuario.apellidos.toUpperCase().substring(0,1):'';
-				req.session.user = nombres.concat(' ',apellidos,'.');
-				if(usuario.tipo=='SA') {
-				   rutaInicio='/Municipio/Listar';
-				}else{
-				   req.session.distrito = usuario.municipio.distrito;
-				   rutaInicio='/General/'+usuario.municipio.id;
-				}
-			}
-			res.redirect(rutaInicio);
-		} catch (error) {
-			res.redirect(rutaInicio);
-		}   
-		*/
 	},
 
 	fnSalir:(req,res)=>{

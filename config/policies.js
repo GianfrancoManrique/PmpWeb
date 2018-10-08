@@ -61,6 +61,7 @@ module.exports.policies = {
   },
   UsuarioController:{
     "*":"isAuthenticated",
+    fnIngresar:true
   }
 
   /***************************************************************************
