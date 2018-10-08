@@ -156,7 +156,7 @@ module.exports = {
 
 				Autoridad.update({id:regidor.id},{foto:archivo[0].extra.Location})
 				.then(function(regidor){
-					res.redirect('/Regidor/Listar/'+req.body.municipio);
+					res.redirect('/Regidor/Listar/'+req.regidor.municipio);
 				})
 				.catch(function(error){
 						res.negotiate(error);
