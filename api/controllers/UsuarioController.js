@@ -53,7 +53,7 @@ module.exports = {
 				let contrasena=await UsuarioDB.fnGenerarContraseña();
 				let contrasenaEnc=await bcrypt.hash(contrasena,10);
 				let usuarioA=await Usuario.update({id:usuarioN.id},{usuario:usuario,contrasena:contrasenaEnc});
-				let resultado=await Correo.fnEnviarCorreo({destinatario:usuarioN.correo,nombres:usuarioN.nombres,apellidos:usuarioN.apellidos});
+				//let resultado=await Correo.fnEnviarCorreo({destinatario:usuarioN.correo,nombres:usuarioN.nombres,apellidos:usuarioN.apellidos});
 				if(usuarioA){
 					let resultado=await Correo.fnEnviarCorreo(usuarioN.correo,usuarioN.nombres,
 						usuarioN.apellidos,usuario,contrasena);

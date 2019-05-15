@@ -58,6 +58,9 @@ module.exports.policies = {
   },
   TramiteController:{
     "*":"isAuthenticated",
+    fnListarTramites:true,
+    fnBuscarPortal:true,
+    fnConsultarTramiteProcedimiento:true
   },
   UsuarioController:{
     "*":"isAuthenticated",

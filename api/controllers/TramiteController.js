@@ -177,14 +177,10 @@ module.exports = {
 
 	fnListarTramites:async(req,res)=>{
 		try {
-			let modulos=await TramiteDB.fnConsultarModulos();
+			let modulos=await TramiteDB.fnConsultarModulos(req.params.municipio);
 			Tramite.query('SELECT id,modulo,procedimiento,pago,atencion from sp_consultartramitesxmunicipio('+req.params.municipio+')',
 	 		function(error,resultado){
 				let tramites=resultado?resultado.rows:null;
-				console.log(modulos);console.log(tramites);
-				//Descomentar
-				//res.view('Tupa/ListarTramites',{modulos:modulos,tramites:tramites,municipio:req.params.municipio});
-				//Comentar
 				res.view('Tupa/ListarTramites2',{modulos:modulos,tramites:tramites,municipio:req.params.municipio});
 		 	})
 		} catch (error) {
@@ -232,16 +228,12 @@ module.exports = {
   	},
 	fnBuscarPortal:async(req,res)=>{
 		try {
-			//let tramitesRes=TramiteDB.fnBuscarPortal(req.body.municipio,req.body.modulo,req.body.palabras);
-			console.log(req.body.modulo);
-			console.log(req.body.palabras);
 			let palabras=req.body.palabras?"'"+req.body.palabras+"'":"'-'";
 			let comando='SELECT id,modulo,procedimiento,pago,atencion from sp_buscartramitesxmunicipio('
             comando=comando.concat(req.body.municipio,',',req.body.modulo,',',palabras,')');
 
             Tramite.query(comando,function(error,resultado){
                 if(resultado){
-                    console.log(resultado.rows);
 					res.send({tramites:resultado.rows});
                 }else{
                    res.send({tramites:null});
