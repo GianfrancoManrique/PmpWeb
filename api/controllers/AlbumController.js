@@ -55,7 +55,10 @@ module.exports = {
     
         try {			          
             //Carga de fotos
-            req.file('fotos').upload(async (err, uploadedFiles)=> {
+            req.file('fotos').upload({adapter:require('skipper-s3'),
+            bucket:'fotosmunicipios',
+            key:'AKIAIP7R7UMNBUU57EKA',
+            secret:'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'},async (err, uploadedFiles)=> {
             var fotos = [];
             //Creacion de album
             let titulo="SIN TITULO";
@@ -63,34 +66,17 @@ module.exports = {
                 titulo=req.body.descripcion;
             }
             
-            let albumReg=await Album.create({titulo:titulo,habilitado:true});
+            let albumReg= await Album.create({titulo:titulo,habilitado:true});
             //Creacion de fotos
             let descripcion='';
             if(req.body.tipo==="album"){
                 descripcion=req.body.tipo;
             }
             let municipio=req.body.municipio;
-            async.each(uploadedFiles,
-                (uploadedFile, callback) =>{
-                    //console.log(uploadedFile);       
-                    let ext=uploadedFile.filename.split('.').pop();
-                    S3UploadService.upload_file(uploadedFile.fd,Date.now().toString()+"."+ext,(error, fileS3)=> {
-                        fotos.push(fileS3);
-                        //Foto.create({descripcion:descripcion,municipio:req.body.municipio,
-                        //url:fileS3.Location,album:albumReg.id}).exec();
-                        callback(error, fileS3);
-                    });
-                }
-                , async (error)=> {
-                if (error) {
-                    console.log(error);
-                } else {
-                    let resultado=await FotoDB.fnCrearFotos(fotos,descripcion,municipio,albumReg.id); 
-                    if(resultado){
-                         res.redirect('/Foto/Listar/'+req.body.municipio);     
-                    }                  
-                }
-                });
+            let resultado=await FotoDB.fnCrearFotos(uploadedFiles,descripcion,municipio,albumReg.id); 
+            if(resultado){
+                    res.redirect('/Foto/Listar/'+req.body.municipio);     
+            }     
            });
         } catch (error) {
             console.log(error);

@@ -39,7 +39,8 @@ module.exports.policies = {
     */
   },
   AlbumController:{
-    "*":"isAuthenticated",
+    "*":true,
+    //fnMostrar:true
   },
   AutoridadController:{
     "*":"isAuthenticated",

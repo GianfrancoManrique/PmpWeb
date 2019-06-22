@@ -8,7 +8,7 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
-    "aws-sdk": "^2.45.0",
+    "aws-sdk": "^2.480.0",
     "bcrypt": "^1.0.3",
     "bower": "^1.7.7",
     "dateformat": "^2.0.0",

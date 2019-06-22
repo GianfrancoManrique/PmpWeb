@@ -18,7 +18,7 @@ var FotoDB = {
     fnCrearFotos:async(fotos,descripcion,municipio,album)=>{
         try{
              fotos.forEach(async(foto)=>{
-                let fotoReg=await Foto.create({descripcion:descripcion,municipio:municipio,nombre_archivo:foto.Key,url:foto.Location,album:album})
+                let fotoReg=await Foto.create({descripcion:descripcion,municipio:municipio,nombre_archivo:foto.extra.Key.toString(),url:foto.extra.Location.toString(),album:album})
                 console.log(fotoReg);
              })
              return true;
