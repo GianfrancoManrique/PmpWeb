@@ -56,6 +56,7 @@ module.exports.policies = {
   },
   NoticiaController:{
     "*":"isAuthenticated",
+    fnConsultar:true
   },
   TramiteController:{
     "*":"isAuthenticated",
