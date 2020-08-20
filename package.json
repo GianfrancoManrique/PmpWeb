@@ -9,7 +9,7 @@
   "keywords": [],
   "dependencies": {
     "aws-sdk": "^2.45.0",
-    "bcrypt": "^1.0.3",
+    "bcrypt": "^5.0.0",
     "bower": "^1.7.7",
     "dateformat": "^2.0.0",
     "ejs": "~0.8.4",
